@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-Hans">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
 :root {
   --bg: #0a0a0f;
   --surface: rgba(255,255,255,.045);
+  --surface-hover: rgba(255,255,255,.08);
   --border: rgba(255,255,255,.09);
   --text: #f2f2f7;
   --text-2: #a1a1aa;
@@ -34,127 +35,108 @@ a:hover { text-decoration: underline; }
 }
 .nav-wrap { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.05); }
 nav { display: flex; align-items: center; justify-content: space-between; max-width: 1080px; margin: 0 auto; padding: 18px 24px; }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; color: var(--text); }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); }
+.logo:hover { text-decoration: none; }
 .logo img { width: 32px; height: 32px; }
-.back { font-size: .92rem; color: var(--text-2); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.back { font-size: .95rem; color: var(--text-2); }
 .back:hover { color: var(--text); text-decoration: none; }
 main { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
-h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
-.meta { color: var(--text-3); font-size: .88rem; margin-bottom: 40px; }
-h2 { font-size: 1.25rem; font-weight: 700; margin: 36px 0 12px; letter-spacing: -.01em; }
-p, li { color: var(--text-2); font-size: .96rem; margin-bottom: 10px; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
+.meta { color: var(--text-3); font-size: .92rem; margin-bottom: 40px; }
+h2 { font-size: 1.35rem; font-weight: 700; margin: 36px 0 12px; letter-spacing: -.01em; }
+p, li { color: var(--text-2); font-size: 1rem; margin-bottom: 10px; }
 ul { padding-left: 1.3em; margin-bottom: 12px; }
 .lead {
   background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
   padding: 20px 22px; margin-bottom: 28px;
 }
 .lead p { color: var(--text); font-weight: 500; margin: 0; }
-.divider { height: 1px; background: rgba(255,255,255,.08); margin: 56px 0 40px; }
-footer { border-top: 1px solid rgba(255,255,255,.06); padding: 36px 24px; text-align: center; color: var(--text-3); font-size: .85rem; }
+footer { border-top: 1px solid rgba(255,255,255,.06); padding: 36px 24px; text-align: center; color: var(--text-3); font-size: .88rem; }
 footer a { color: var(--text-3); }
 footer a:hover { color: var(--text-2); }
 </style>
+<script src="i18n.js" defer></script>
 </head>
-<body>
+<body data-page="privacy">
 <div class="glow"></div>
 
 <div class="nav-wrap">
 <nav>
   <a class="logo" href="index.html">
-    <img src="icon-256.png" alt="RightKit 图标">
+    <img src="icon-256.png" data-i18n-attr="alt:common.iconAlt" alt="RightKit 图标">
     RightKit
   </a>
-  <a class="back" href="index.html">← 返回首页</a>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <button class="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language / 语言">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span class="lang-cur">简体</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-menu" role="menu">
+        <button data-lang="zh-Hans" role="menuitem">简体中文</button>
+        <button data-lang="zh-Hant" role="menuitem">繁體中文</button>
+        <button data-lang="en" role="menuitem">English</button>
+        <button data-lang="ja" role="menuitem">日本語</button>
+        <button data-lang="ko" role="menuitem">한국어</button>
+        <button data-lang="fr" role="menuitem">Français</button>
+        <button data-lang="de" role="menuitem">Deutsch</button>
+        <button data-lang="es" role="menuitem">Español</button>
+        <button data-lang="ru" role="menuitem">Русский</button>
+        <button data-lang="pt" role="menuitem">Português</button>
+      </div>
+    </div>
+    <a class="back" href="index.html" data-i18n="common.back">← 返回首页</a>
+  </div>
 </nav>
 </div>
 
 <main>
-  <h1>隐私政策</h1>
-  <p class="meta">生效日期：2026 年 7 月 4 日 · 适用于 RightKit 的 App Store 版与官网版</p>
+  <h1 data-i18n="priv.h1">隐私政策</h1>
+  <p class="meta" data-i18n="priv.meta">生效日期：2026 年 7 月 4 日 · 适用于 RightKit 的 App Store 版与官网版</p>
 
   <div class="lead">
-    <p>一句话版本：RightKit 不收集、不上传、不出售你的任何个人数据。没有账号系统，没有分析统计，没有广告与追踪。</p>
+    <p data-i18n="priv.lead">一句话版本：RightKit 不收集、不上传、不出售你的任何个人数据。没有账号系统，没有分析统计，没有广告与追踪。</p>
   </div>
 
-  <h2>1. 我们收集哪些数据</h2>
-  <p>不收集。RightKit 没有内置任何分析、统计或广告 SDK，不会将你的文件内容、文件名、剪贴板内容、使用行为或设备信息上传到我们的服务器。</p>
+  <h2 data-i18n="priv.1.h">1. 我们收集哪些数据</h2>
+  <p data-i18n="priv.1.p">不收集。RightKit 没有内置任何分析、统计或广告 SDK，不会将你的文件内容、文件名、剪贴板内容、使用行为或设备信息上传到我们的服务器。</p>
 
-  <h2>2. 保存在你设备本地的数据</h2>
+  <h2 data-i18n="priv.2.h">2. 保存在你设备本地的数据</h2>
   <ul>
-    <li><strong>偏好与菜单配置</strong>：你的菜单布局、文件模板、快捷键等设置仅保存在本机，用于 App 与 Finder 扩展间同步。</li>
-    <li><strong>剪贴板历史</strong>（如启用）：仅保存在本机，随时可清空；来自密码管理器等标记为隐私内容的条目会被自动跳过，不会记录。</li>
-    <li><strong>文件夹访问授权</strong>（App Store 版）：你授权的文件夹以 macOS 安全作用域书签形式保存在本机，仅用于执行你主动触发的文件操作。</li>
+    <li data-i18n-html="priv.2.li1"><strong>偏好与菜单配置</strong>：你的菜单布局、文件模板、快捷键等设置仅保存在本机，用于 App 与 Finder 扩展间同步。</li>
+    <li data-i18n-html="priv.2.li2"><strong>剪贴板历史</strong>（如启用）：仅保存在本机，随时可清空；来自密码管理器等标记为隐私内容的条目会被自动跳过，不会记录。</li>
+    <li data-i18n-html="priv.2.li3"><strong>文件夹访问授权</strong>（App Store 版）：你授权的文件夹以 macOS 安全作用域书签形式保存在本机，仅用于执行你主动触发的文件操作。</li>
   </ul>
-  <p>以上数据均不会离开你的设备。删除 App 即删除全部数据。</p>
+  <p data-i18n="priv.2.p">以上数据均不会离开你的设备。删除 App 即删除全部数据。</p>
 
-  <h2>3. 文件访问</h2>
-  <p>RightKit 仅在你主动点击右键菜单或快捷键时才对相应文件执行操作（新建、移动、压缩等），不会在后台扫描或读取你的文件。App Store 版运行在 macOS 沙盒中，访问任何文件夹前都需要你显式授权。</p>
+  <h2 data-i18n="priv.3.h">3. 文件访问</h2>
+  <p data-i18n="priv.3.p">RightKit 仅在你主动点击右键菜单或快捷键时才对相应文件执行操作（新建、移动、压缩等），不会在后台扫描或读取你的文件。App Store 版运行在 macOS 沙盒中，访问任何文件夹前都需要你显式授权。</p>
 
-  <h2>4. 网络请求</h2>
-  <p>RightKit 自身不上传任何数据。以下场景会产生必要的网络通信：</p>
+  <h2 data-i18n="priv.4.h">4. 网络请求</h2>
+  <p data-i18n="priv.4.p">RightKit 自身不上传任何数据。以下场景会产生必要的网络通信：</p>
   <ul>
-    <li><strong>App 内购买 / 恢复购买</strong>（App Store 版）：由 Apple 的 StoreKit 完成，受 <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple 隐私政策</a>约束，我们无法接触你的支付信息。</li>
-    <li><strong>试用状态校验</strong>（如启用）：通过 Apple DeviceCheck 框架校验试用资格，仅传输 Apple 生成的匿名设备令牌，不包含任何个人信息。</li>
-    <li><strong>License 激活</strong>（官网版）：激活时会将你输入的激活码与匿名的设备标识符发送至许可校验服务，仅用于验证激活码有效性与激活台数限制，不与任何个人身份关联。</li>
-  </ul>
-
-  <h2>5. 第三方服务</h2>
-  <p>RightKit 不集成任何第三方分析、广告或社交 SDK。</p>
-
-  <h2>6. 儿童隐私</h2>
-  <p>RightKit 是一款通用效率工具，不面向 13 岁以下儿童，也不会有意收集任何儿童信息（如第 1 条所述，我们不收集任何人的信息）。</p>
-
-  <h2>7. 政策变更</h2>
-  <p>如本政策发生实质性变更，我们会在本页面更新并调整生效日期。持续使用 RightKit 即表示你接受更新后的政策。</p>
-
-  <h2>8. 联系我们</h2>
-  <p>对本政策有任何疑问，请通过 <a href="support.html">技术支持页面</a> 联系我们。</p>
-
-  <div class="divider"></div>
-
-  <h1>Privacy Policy</h1>
-  <p class="meta">Effective date: July 4, 2026 · Applies to both the App Store and website editions of RightKit</p>
-
-  <div class="lead">
-    <p>TL;DR: RightKit does not collect, upload, or sell any of your personal data. No accounts, no analytics, no ads, no tracking.</p>
-  </div>
-
-  <h2>1. Data We Collect</h2>
-  <p>None. RightKit contains no analytics, advertising, or tracking SDKs. Your file contents, file names, clipboard contents, usage behavior, and device information are never uploaded to our servers.</p>
-
-  <h2>2. Data Stored Locally on Your Device</h2>
-  <ul>
-    <li><strong>Preferences and menu configuration</strong> — stored on your Mac only, used to sync settings between the app and its Finder extension.</li>
-    <li><strong>Clipboard history</strong> (if enabled) — stored on your Mac only and can be cleared at any time; items marked as concealed (e.g. from password managers) are automatically skipped.</li>
-    <li><strong>Folder authorizations</strong> (App Store edition) — folders you grant are stored as macOS security-scoped bookmarks on your Mac only, used solely to perform actions you explicitly trigger.</li>
-  </ul>
-  <p>None of this data ever leaves your device. Deleting the app deletes all of it.</p>
-
-  <h2>3. File Access</h2>
-  <p>RightKit only touches files when you explicitly invoke a context-menu action or shortcut. It never scans or reads your files in the background. The App Store edition runs in the macOS App Sandbox and requires your explicit authorization before accessing any folder.</p>
-
-  <h2>4. Network Requests</h2>
-  <ul>
-    <li><strong>In-app purchase / restore</strong> (App Store edition) — handled entirely by Apple's StoreKit under <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>; we never see your payment details.</li>
-    <li><strong>Trial verification</strong> (if enabled) — uses Apple's DeviceCheck framework, transmitting only an anonymous Apple-generated device token with no personal information.</li>
-    <li><strong>License activation</strong> (website edition) — your license key and an anonymous device identifier are sent to the license-validation service solely to verify the key and enforce activation limits; they are not linked to any personal identity.</li>
+    <li data-i18n-html="priv.4.li1"><strong>App 内购买 / 恢复购买</strong>（App Store 版）：由 Apple 的 StoreKit 完成，受 <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple 隐私政策</a>约束，我们无法接触你的支付信息。</li>
+    <li data-i18n-html="priv.4.li2"><strong>试用状态校验</strong>（如启用）：通过 Apple DeviceCheck 框架校验试用资格，仅传输 Apple 生成的匿名设备令牌，不包含任何个人信息。</li>
+    <li data-i18n-html="priv.4.li3"><strong>License 激活</strong>（官网版）：激活时会将你输入的激活码与匿名的设备标识符发送至许可校验服务，仅用于验证激活码有效性与激活台数限制，不与任何个人身份关联。</li>
   </ul>
 
-  <h2>5. Third-Party Services</h2>
-  <p>RightKit integrates no third-party analytics, advertising, or social SDKs.</p>
+  <h2 data-i18n="priv.5.h">5. 第三方服务</h2>
+  <p data-i18n="priv.5.p">RightKit 不集成任何第三方分析、广告或社交 SDK。</p>
 
-  <h2>6. Children's Privacy</h2>
-  <p>RightKit is a general-purpose utility not directed at children under 13, and — as stated above — collects no information from anyone.</p>
+  <h2 data-i18n="priv.6.h">6. 儿童隐私</h2>
+  <p data-i18n="priv.6.p">RightKit 是一款通用效率工具，不面向 13 岁以下儿童，也不会有意收集任何儿童信息（如第 1 条所述，我们不收集任何人的信息）。</p>
 
-  <h2>7. Changes to This Policy</h2>
-  <p>Material changes will be posted on this page with an updated effective date.</p>
+  <h2 data-i18n="priv.7.h">7. 政策变更</h2>
+  <p data-i18n="priv.7.p">如本政策发生实质性变更，我们会在本页面更新并调整生效日期。持续使用 RightKit 即表示你接受更新后的政策。</p>
 
-  <h2>8. Contact</h2>
-  <p>Questions? Reach us via the <a href="support.html">support page</a>.</p>
+  <h2 data-i18n="priv.8.h">8. 联系我们</h2>
+  <p data-i18n-html="priv.8.p">对本政策有任何疑问，请通过 <a href="support.html">技术支持页面</a> 联系我们。</p>
 </main>
 
 <footer>
-  <p>© 2026 RightKit · <a href="index.html">首页</a> · <a href="privacy.html">隐私政策</a> · <a href="support.html">技术支持</a></p>
+  <p>© 2026 RightKit · <a href="index.html" data-i18n="common.home">首页</a> · <a href="privacy.html" data-i18n="common.privacy">隐私政策</a> · <a href="support.html" data-i18n="common.support">技术支持</a></p>
 </footer>
 </body>
 </html>

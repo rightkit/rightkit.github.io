@@ -1,0 +1,1248 @@
+/* RightKit website i18n
+ * Supported languages mirror the app: 简体中文 (zh-Hans), 繁體中文 (zh-Hant), English (en).
+ * Detection mirrors the app's RKL10n logic:
+ *   - a stored manual choice always wins;
+ *   - otherwise walk the browser's preferred languages: zh -> Hant/Hans, en -> en;
+ *   - anything unsupported falls back to English.
+ */
+(function () {
+  "use strict";
+
+  var SUPPORTED = ["zh-Hans", "zh-Hant", "en", "ja", "ko", "fr", "de", "es", "ru", "pt"];
+  var SHORT = {
+    "zh-Hans": "简体", "zh-Hant": "繁體", "en": "EN", "ja": "日本語", "ko": "한국어",
+    "fr": "FR", "de": "DE", "es": "ES", "ru": "RU", "pt": "PT"
+  };
+  var NATIVE = {
+    "zh-Hans": "简体中文", "zh-Hant": "繁體中文", "en": "English", "ja": "日本語", "ko": "한국어",
+    "fr": "Français", "de": "Deutsch", "es": "Español", "ru": "Русский", "pt": "Português"
+  };
+  var STORAGE_KEY = "rk_lang";
+
+  var T = {
+    /* ============================= 简体中文 ============================= */
+    "zh-Hans": {
+      "meta.title.index": "RightKit — 让 Finder 右键菜单更强大",
+      "meta.desc.index": "RightKit 是一款 macOS Finder 右键菜单增强工具：新建文件、在终端中打开、复制路径、剪切粘贴、剪贴板历史。一次购买，永久使用。",
+      "meta.title.support": "技术支持 — RightKit",
+      "meta.desc.support": "RightKit 技术支持：使用指南、常见问题与联系方式。",
+      "meta.title.privacy": "隐私政策 — RightKit",
+      "meta.desc.privacy": "RightKit 隐私政策：不收集、不上传、不出售任何用户数据。",
+
+      "common.iconAlt": "RightKit 图标",
+      "common.back": "← 返回首页",
+      "common.home": "首页",
+      "common.privacy": "隐私政策",
+      "common.support": "技术支持",
+
+      "nav.features": "功能",
+      "nav.pricing": "定价",
+      "nav.faq": "常见问题",
+      "nav.cta": "立即获取",
+
+      "hero.badge": "首款支持 macOS 26 Liquid Glass 的右键工具",
+      "hero.h1": "让右键菜单，<br><span class=\"grad\">回到它该有的样子</span>",
+      "hero.sub": "RightKit 把「新建文件」「在终端中打开」「复制路径」这些本该存在的操作，原生地放回 Finder 右键菜单。轻量、快速、随叫随到。",
+      "hero.btnStore": "App Store 下载",
+      "hero.btnDmg": "下载 DMG",
+      "hero.note": "免费试用 · 一次购买，永久使用 · 无订阅",
+
+      "menu.newFile": "新建文件",
+      "menu.cut": "剪切",
+      "menu.paste": "粘贴",
+      "menu.copyPath": "复制路径",
+      "menu.openTerminal": "在终端中打开",
+      "menu.moveTo": "移动到…",
+      "menu.showHidden": "显示隐藏文件",
+      "menu.deleteForever": "彻底删除",
+      "menu.grpTerminal": "终端",
+      "menu.grpEditor": "编辑器",
+      "menu.grpIDE": "IDE",
+
+      "feat.kicker": "功能",
+      "feat.h2": "你每天都在等的那些右键操作",
+      "feat.sub": "不切换窗口、不打开新 App——所有高频文件操作，两次点击内完成。",
+      "feat.1.h": "新建文件",
+      "feat.1.p": "20+ 种模板一键创建：Swift、Python、TS 等代码文件，Markdown 文档，以及 Word、Excel、Keynote 等 Office 空白文件。",
+      "feat.2.h": "在终端 / 编辑器中打开",
+      "feat.2.p": "当前目录直达 Terminal、iTerm2、Warp、Alacritty，或用 VS Code、Cursor、Xcode、IDEA 打开——自动检测已安装的应用。",
+      "feat.3.h": "复制路径，6 种格式",
+      "feat.3.p": "绝对路径、相对路径、POSIX、<code>~/</code> 相对路径、纯文件名……写代码、发消息，要哪种给哪种。",
+      "feat.4.h": "真正的剪切粘贴",
+      "feat.4.p": "Windows 用户想了十年的功能：右键剪切文件，到目标文件夹粘贴，一步到位。",
+      "feat.5.h": "移动到常用目录",
+      "feat.5.p": "下载、文稿、桌面一键直达，还会记住你最近移动过的位置——整理文件不再拖来拖去。",
+      "feat.6.h": "剪贴板历史",
+      "feat.6.p": "菜单栏常驻剪贴板历史，随时找回复制过的文本。自动跳过密码管理器等隐私内容。",
+      "feat.7.h": "隐藏文件开关",
+      "feat.7.p": "一次点击切换隐藏文件的显示与隐藏，不用再背 <code>⌘⇧.</code>，也不用敲命令行。",
+      "feat.8.h": "全局快捷键",
+      "feat.8.p": "给高频操作绑上快捷键，Finder 前台时一按即达——无需辅助功能权限。",
+      "feat.9.h": "菜单完全自定义",
+      "feat.9.p": "每一项都能开关、排序，文件模板可增删。你的右键菜单，只放你需要的东西。",
+
+      "price.kicker": "定价",
+      "price.h2": "一次买断，没有订阅",
+      "price.sub": "先免费试用，喜欢再解锁。一个价格，全部功能，永久更新。",
+      "price.free.h": "免费试用",
+      "price.free.amount": "¥0",
+      "price.free.period": "试用期内全功能开放",
+      "price.free.li1": "全部右键菜单功能",
+      "price.free.li2": "无需注册账号",
+      "price.free.li3": "不收集任何个人数据",
+      "price.free.btn": "即将开放下载",
+      "price.pro.tag": "推荐",
+      "price.pro.h": "RightKit 专业版",
+      "price.pro.amount": "¥68 <span>/ 永久</span>",
+      "price.pro.period": "一次购买 · 免费更新 · 无订阅",
+      "price.pro.li1": "永久解锁全部功能",
+      "price.pro.li2": "App Store 内购或官网 License 两种渠道",
+      "price.pro.li3": "后续版本免费升级",
+      "price.pro.btn": "即将上架 App Store",
+
+      "faq.kicker": "FAQ",
+      "faq.h2": "常见问题",
+      "faq.q1": "RightKit 支持哪些 macOS 版本？",
+      "faq.a1": "macOS 13 Ventura 及以上版本，原生支持 Apple Silicon 与 Intel 芯片。",
+      "faq.q2": "安装后右键菜单里没有出现 RightKit？",
+      "faq.a2": "首次使用需要在「系统设置 → 隐私与安全性 → 扩展 → 已添加的扩展」中勾选启用 RightKit 的 Finder 扩展。App 内的引导页会带你完成这一步。",
+      "faq.q3": "会拖慢 Finder 或占用很多资源吗？",
+      "faq.a3": "不会。RightKit 基于 Apple 官方的 FinderSync 扩展机制实现，菜单按需构建，后台常驻内存占用极小。",
+      "faq.q4": "App Store 版和官网版有什么区别？",
+      "faq.a4": "功能完全一致。App Store 版通过内购解锁专业版；官网 DMG 版通过 License Key 激活。两个渠道各自购买一次即可永久使用。",
+      "faq.q5": "我的数据安全吗？",
+      "faq.a5": "RightKit 不收集、不上传任何文件内容或使用数据。剪贴板历史仅保存在本机，并自动跳过密码管理器标记的隐私内容。",
+
+      "foot.copy": "© 2026 RightKit · 为 macOS 用心打造",
+
+      /* ---------- support.html ---------- */
+      "sup.h1": "技术支持",
+      "sup.meta": "使用指南 · 常见问题 · 联系我们（Support in English is also available — just email us.）",
+      "sup.contact.title": "联系我们",
+      "sup.contact.p": "遇到问题或有功能建议？发邮件给我们，通常 1–2 个工作日内回复。",
+      "sup.contact.btn": "发送邮件",
+      "sup.contact.note": "反馈时请附上：macOS 版本、RightKit 版本与渠道（App Store / 官网 DMG）、问题复现步骤。",
+      "sup.start.h": "快速上手",
+      "sup.start.1.s": "第一步：启用 Finder 扩展",
+      "sup.start.1.p1": "RightKit 的右键菜单由 Finder 扩展提供，首次使用需要在系统设置中启用（App 内引导页会带你完成）：",
+      "sup.start.1.li1": "<strong>macOS 15.4.1 及以上 / macOS 26</strong>：系统设置 → 通用 → 登录项与扩展 → 文件提供程序（或「已添加的扩展」）→ 勾选 RightKit",
+      "sup.start.1.li2": "<strong>macOS 13 / 14</strong>：系统设置 → 隐私与安全性 → 扩展 → 已添加的扩展 → 勾选 RightKit",
+      "sup.start.1.li3": "<strong>macOS 15.0–15.4.0</strong>：这些版本的系统设置没有扩展开关界面。请按 App 内提示复制命令 <code>pluginkit -e use -i com.rightkit.app.findersync</code> 到「终端」执行",
+      "sup.start.1.p2": "启用后若菜单未立即出现，请重启 Finder（按住 ⌥ 右键点击 Dock 中的 Finder → 重新开启），或注销后重新登录。",
+      "sup.start.2.s": "第二步（App Store 版）：授权文件夹",
+      "sup.start.2.p": "App Store 版运行在 macOS 沙盒中，执行文件操作前需要你授权相应文件夹。建议在 RightKit 设置 → 权限 → 文件夹访问 中点击「授权文件夹…」并选择个人文件夹（🏠），一次授权即可覆盖全部常用位置。也可以在首次使用某个文件夹时按弹窗提示逐个授权。",
+      "sup.faq.h": "常见问题",
+      "sup.faq.1.s": "右键菜单里没有 RightKit 的选项？",
+      "sup.faq.1.li1": "确认扩展已启用（见上方「快速上手」第一步）",
+      "sup.faq.1.li2": "重启 Finder：按住 ⌥（Option）右键点击 Dock 中的 Finder 图标 → 重新开启",
+      "sup.faq.1.li3": "确认 RightKit 主程序已启动（菜单栏应有 RightKit 图标）",
+      "sup.faq.1.li4": "仍无效时，打开 RightKit 设置 → 权限 页面，按提示逐项检查",
+      "sup.faq.2.s": "购买后如何在新 Mac 上恢复专业版？（App Store 版）",
+      "sup.faq.2.p": "用购买时的同一 Apple 账户登录 App Store，打开 RightKit 设置 → 关于 → 点击「恢复购买」即可，无需重复付费。",
+      "sup.faq.3.s": "License Key 如何激活？（官网 DMG 版）",
+      "sup.faq.3.p": "打开 RightKit 设置 → 关于，在输入框中粘贴购买邮件里的激活码（格式 XXXX-XXXX-XXXX-XXXX），点击「激活」。每个激活码可在限定数量的设备上使用；更换设备如遇激活数已满，请邮件联系我们重置。",
+      "sup.faq.4.s": "「显示隐藏文件」点击后没反应？",
+      "sup.faq.4.p": "该功能需要重启 Finder 才能生效，RightKit 会自动完成并恢复已打开的窗口。首次使用时 macOS 可能弹出「RightKit 想控制 Finder」的自动化授权询问，请选择「允许」；若曾误点拒绝，可在 系统设置 → 隐私与安全性 → 自动化 中重新开启。",
+      "sup.faq.5.s": "剪贴板历史为什么是空的？",
+      "sup.faq.5.p": "macOS 15.4 及以上版本需要「从其他 App 粘贴」权限：首次使用时系统会弹窗询问，请选择「始终允许」。可在 RightKit 设置 → 权限 页面查看当前授权状态。密码管理器等标记为隐私的内容会被自动跳过，属正常现象。",
+      "sup.faq.6.s": "如何完全卸载？",
+      "sup.faq.6.p": "退出 RightKit（菜单栏图标 → 退出），把 /Applications 中的 RightKit.app 移到废纸篓即可。所有配置数据都保存在本机 App 容器内，会随 App 一并清除。",
+      "sup.other.h": "其他",
+      "sup.other.p": "隐私相关说明请见<a href=\"privacy.html\">隐私政策</a>。RightKit 支持 macOS 13 Ventura 及以上版本（Apple Silicon 与 Intel）。",
+
+      /* ---------- privacy.html ---------- */
+      "priv.h1": "隐私政策",
+      "priv.meta": "生效日期：2026 年 7 月 4 日 · 适用于 RightKit 的 App Store 版与官网版",
+      "priv.lead": "一句话版本：RightKit 不收集、不上传、不出售你的任何个人数据。没有账号系统，没有分析统计，没有广告与追踪。",
+      "priv.1.h": "1. 我们收集哪些数据",
+      "priv.1.p": "不收集。RightKit 没有内置任何分析、统计或广告 SDK，不会将你的文件内容、文件名、剪贴板内容、使用行为或设备信息上传到我们的服务器。",
+      "priv.2.h": "2. 保存在你设备本地的数据",
+      "priv.2.li1": "<strong>偏好与菜单配置</strong>：你的菜单布局、文件模板、快捷键等设置仅保存在本机，用于 App 与 Finder 扩展间同步。",
+      "priv.2.li2": "<strong>剪贴板历史</strong>（如启用）：仅保存在本机，随时可清空；来自密码管理器等标记为隐私内容的条目会被自动跳过，不会记录。",
+      "priv.2.li3": "<strong>文件夹访问授权</strong>（App Store 版）：你授权的文件夹以 macOS 安全作用域书签形式保存在本机，仅用于执行你主动触发的文件操作。",
+      "priv.2.p": "以上数据均不会离开你的设备。删除 App 即删除全部数据。",
+      "priv.3.h": "3. 文件访问",
+      "priv.3.p": "RightKit 仅在你主动点击右键菜单或快捷键时才对相应文件执行操作（新建、移动、压缩等），不会在后台扫描或读取你的文件。App Store 版运行在 macOS 沙盒中，访问任何文件夹前都需要你显式授权。",
+      "priv.4.h": "4. 网络请求",
+      "priv.4.p": "RightKit 自身不上传任何数据。以下场景会产生必要的网络通信：",
+      "priv.4.li1": "<strong>App 内购买 / 恢复购买</strong>（App Store 版）：由 Apple 的 StoreKit 完成，受 <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple 隐私政策</a>约束，我们无法接触你的支付信息。",
+      "priv.4.li2": "<strong>试用状态校验</strong>（如启用）：通过 Apple DeviceCheck 框架校验试用资格，仅传输 Apple 生成的匿名设备令牌，不包含任何个人信息。",
+      "priv.4.li3": "<strong>License 激活</strong>（官网版）：激活时会将你输入的激活码与匿名的设备标识符发送至许可校验服务，仅用于验证激活码有效性与激活台数限制，不与任何个人身份关联。",
+      "priv.5.h": "5. 第三方服务",
+      "priv.5.p": "RightKit 不集成任何第三方分析、广告或社交 SDK。",
+      "priv.6.h": "6. 儿童隐私",
+      "priv.6.p": "RightKit 是一款通用效率工具，不面向 13 岁以下儿童，也不会有意收集任何儿童信息（如第 1 条所述，我们不收集任何人的信息）。",
+      "priv.7.h": "7. 政策变更",
+      "priv.7.p": "如本政策发生实质性变更，我们会在本页面更新并调整生效日期。持续使用 RightKit 即表示你接受更新后的政策。",
+      "priv.8.h": "8. 联系我们",
+      "priv.8.p": "对本政策有任何疑问，请通过 <a href=\"support.html\">技术支持页面</a> 联系我们。"
+    },
+
+    /* ============================= 繁體中文 ============================= */
+    "zh-Hant": {
+      "meta.title.index": "RightKit — 讓 Finder 右鍵選單更強大",
+      "meta.desc.index": "RightKit 是一款 macOS Finder 右鍵選單增強工具：新建檔案、在終端機中開啟、複製路徑、剪下貼上、剪貼簿歷史。一次購買，永久使用。",
+      "meta.title.support": "技術支援 — RightKit",
+      "meta.desc.support": "RightKit 技術支援：使用指南、常見問題與聯絡方式。",
+      "meta.title.privacy": "隱私權政策 — RightKit",
+      "meta.desc.privacy": "RightKit 隱私權政策：不收集、不上傳、不出售任何使用者資料。",
+
+      "common.iconAlt": "RightKit 圖示",
+      "common.back": "← 返回首頁",
+      "common.home": "首頁",
+      "common.privacy": "隱私權政策",
+      "common.support": "技術支援",
+
+      "nav.features": "功能",
+      "nav.pricing": "定價",
+      "nav.faq": "常見問題",
+      "nav.cta": "立即取得",
+
+      "hero.badge": "首款支援 macOS 26 Liquid Glass 的右鍵工具",
+      "hero.h1": "讓右鍵選單，<br><span class=\"grad\">回到它該有的樣子</span>",
+      "hero.sub": "RightKit 把「新建檔案」「在終端機中開啟」「複製路徑」這些本該存在的操作，原生地放回 Finder 右鍵選單。輕量、快速、隨叫隨到。",
+      "hero.btnStore": "App Store 下載",
+      "hero.btnDmg": "下載 DMG",
+      "hero.note": "免費試用 · 一次購買，永久使用 · 無訂閱",
+
+      "menu.newFile": "新建檔案",
+      "menu.cut": "剪下",
+      "menu.paste": "貼上",
+      "menu.copyPath": "複製路徑",
+      "menu.openTerminal": "在終端機中開啟",
+      "menu.moveTo": "移動到…",
+      "menu.showHidden": "顯示隱藏檔案",
+      "menu.deleteForever": "徹底刪除",
+      "menu.grpTerminal": "終端機",
+      "menu.grpEditor": "編輯器",
+      "menu.grpIDE": "IDE",
+
+      "feat.kicker": "功能",
+      "feat.h2": "你每天都在等的那些右鍵操作",
+      "feat.sub": "不切換視窗、不開啟新 App——所有高頻檔案操作，兩次點擊內完成。",
+      "feat.1.h": "新建檔案",
+      "feat.1.p": "20+ 種範本一鍵建立：Swift、Python、TS 等程式碼檔案，Markdown 文件，以及 Word、Excel、Keynote 等 Office 空白檔案。",
+      "feat.2.h": "在終端機 / 編輯器中開啟",
+      "feat.2.p": "當前目錄直達 Terminal、iTerm2、Warp、Alacritty，或用 VS Code、Cursor、Xcode、IDEA 開啟——自動偵測已安裝的應用程式。",
+      "feat.3.h": "複製路徑，6 種格式",
+      "feat.3.p": "絕對路徑、相對路徑、POSIX、<code>~/</code> 相對路徑、純檔名……寫程式、傳訊息，要哪種給哪種。",
+      "feat.4.h": "真正的剪下貼上",
+      "feat.4.p": "Windows 使用者想了十年的功能：右鍵剪下檔案，到目標資料夾貼上，一步到位。",
+      "feat.5.h": "移動到常用目錄",
+      "feat.5.p": "下載、文件、桌面一鍵直達，還會記住你最近移動過的位置——整理檔案不再拖來拖去。",
+      "feat.6.h": "剪貼簿歷史",
+      "feat.6.p": "選單列常駐剪貼簿歷史，隨時找回複製過的文字。自動跳過密碼管理器等隱私內容。",
+      "feat.7.h": "隱藏檔案開關",
+      "feat.7.p": "一次點擊切換隱藏檔案的顯示與隱藏，不用再背 <code>⌘⇧.</code>，也不用敲命令列。",
+      "feat.8.h": "全域快捷鍵",
+      "feat.8.p": "給高頻操作綁上快捷鍵，Finder 前景時一按即達——無需輔助使用權限。",
+      "feat.9.h": "選單完全自訂",
+      "feat.9.p": "每一項都能開關、排序，檔案範本可增刪。你的右鍵選單，只放你需要的東西。",
+
+      "price.kicker": "定價",
+      "price.h2": "一次買斷，沒有訂閱",
+      "price.sub": "先免費試用，喜歡再解鎖。一個價格，全部功能，永久更新。",
+      "price.free.h": "免費試用",
+      "price.free.amount": "¥0",
+      "price.free.period": "試用期內全功能開放",
+      "price.free.li1": "全部右鍵選單功能",
+      "price.free.li2": "無需註冊帳號",
+      "price.free.li3": "不收集任何個人資料",
+      "price.free.btn": "即將開放下載",
+      "price.pro.tag": "推薦",
+      "price.pro.h": "RightKit 專業版",
+      "price.pro.amount": "¥68 <span>/ 永久</span>",
+      "price.pro.period": "一次購買 · 免費更新 · 無訂閱",
+      "price.pro.li1": "永久解鎖全部功能",
+      "price.pro.li2": "App Store 內購或官網 License 兩種渠道",
+      "price.pro.li3": "後續版本免費升級",
+      "price.pro.btn": "即將上架 App Store",
+
+      "faq.kicker": "FAQ",
+      "faq.h2": "常見問題",
+      "faq.q1": "RightKit 支援哪些 macOS 版本？",
+      "faq.a1": "macOS 13 Ventura 及以上版本，原生支援 Apple Silicon 與 Intel 晶片。",
+      "faq.q2": "安裝後右鍵選單裡沒有出現 RightKit？",
+      "faq.a2": "首次使用需要在「系統設定 → 隱私權與安全性 → 擴充功能 → 已加入的擴充功能」中勾選啟用 RightKit 的 Finder 擴充功能。App 內的引導頁會帶你完成這一步。",
+      "faq.q3": "會拖慢 Finder 或佔用很多資源嗎？",
+      "faq.a3": "不會。RightKit 基於 Apple 官方的 FinderSync 擴充機制實現，選單按需建構，背景常駐記憶體佔用極小。",
+      "faq.q4": "App Store 版和官網版有什麼區別？",
+      "faq.a4": "功能完全一致。App Store 版透過內購解鎖專業版；官網 DMG 版透過 License Key 啟用。兩個渠道各自購買一次即可永久使用。",
+      "faq.q5": "我的資料安全嗎？",
+      "faq.a5": "RightKit 不收集、不上傳任何檔案內容或使用資料。剪貼簿歷史僅保存在本機，並自動跳過密碼管理器標記的隱私內容。",
+
+      "foot.copy": "© 2026 RightKit · 為 macOS 用心打造",
+
+      /* ---------- support.html ---------- */
+      "sup.h1": "技術支援",
+      "sup.meta": "使用指南 · 常見問題 · 聯絡我們（Support in English is also available — just email us.）",
+      "sup.contact.title": "聯絡我們",
+      "sup.contact.p": "遇到問題或有功能建議？寄信給我們，通常 1–2 個工作日內回覆。",
+      "sup.contact.btn": "傳送郵件",
+      "sup.contact.note": "回報時請附上：macOS 版本、RightKit 版本與渠道（App Store / 官網 DMG）、問題重現步驟。",
+      "sup.start.h": "快速上手",
+      "sup.start.1.s": "第一步：啟用 Finder 擴充功能",
+      "sup.start.1.p1": "RightKit 的右鍵選單由 Finder 擴充功能提供，首次使用需要在系統設定中啟用（App 內引導頁會帶你完成）：",
+      "sup.start.1.li1": "<strong>macOS 15.4.1 及以上 / macOS 26</strong>：系統設定 → 一般 → 登入項目與擴充功能 → 檔案提供者（或「已加入的擴充功能」）→ 勾選 RightKit",
+      "sup.start.1.li2": "<strong>macOS 13 / 14</strong>：系統設定 → 隱私權與安全性 → 擴充功能 → 已加入的擴充功能 → 勾選 RightKit",
+      "sup.start.1.li3": "<strong>macOS 15.0–15.4.0</strong>：這些版本的系統設定沒有擴充功能開關介面。請按 App 內提示複製命令 <code>pluginkit -e use -i com.rightkit.app.findersync</code> 到「終端機」執行",
+      "sup.start.1.p2": "啟用後若選單未立即出現，請重新啟動 Finder（按住 ⌥ 右鍵點擊 Dock 中的 Finder → 重新開啟），或登出後重新登入。",
+      "sup.start.2.s": "第二步（App Store 版）：授權資料夾",
+      "sup.start.2.p": "App Store 版運行在 macOS 沙盒中，執行檔案操作前需要你授權相應資料夾。建議在 RightKit 設定 → 權限 → 資料夾存取 中點擊「授權資料夾…」並選擇個人資料夾（🏠），一次授權即可涵蓋全部常用位置。也可以在首次使用某個資料夾時按彈窗提示逐個授權。",
+      "sup.faq.h": "常見問題",
+      "sup.faq.1.s": "右鍵選單裡沒有 RightKit 的選項？",
+      "sup.faq.1.li1": "確認擴充功能已啟用（見上方「快速上手」第一步）",
+      "sup.faq.1.li2": "重新啟動 Finder：按住 ⌥（Option）右鍵點擊 Dock 中的 Finder 圖示 → 重新開啟",
+      "sup.faq.1.li3": "確認 RightKit 主程式已啟動（選單列應有 RightKit 圖示）",
+      "sup.faq.1.li4": "仍無效時，開啟 RightKit 設定 → 權限 頁面，按提示逐項檢查",
+      "sup.faq.2.s": "購買後如何在新 Mac 上恢復專業版？（App Store 版）",
+      "sup.faq.2.p": "用購買時的同一 Apple 帳戶登入 App Store，開啟 RightKit 設定 → 關於 → 點擊「恢復購買」即可，無需重複付費。",
+      "sup.faq.3.s": "License Key 如何啟用？（官網 DMG 版）",
+      "sup.faq.3.p": "開啟 RightKit 設定 → 關於，在輸入框中貼上購買郵件裡的啟用碼（格式 XXXX-XXXX-XXXX-XXXX），點擊「啟用」。每個啟用碼可在限定數量的裝置上使用；更換裝置如遇啟用數已滿，請寄信聯絡我們重置。",
+      "sup.faq.4.s": "「顯示隱藏檔案」點擊後沒反應？",
+      "sup.faq.4.p": "該功能需要重新啟動 Finder 才能生效，RightKit 會自動完成並恢復已開啟的視窗。首次使用時 macOS 可能彈出「RightKit 想控制 Finder」的自動化授權詢問，請選擇「允許」；若曾誤點拒絕，可在 系統設定 → 隱私權與安全性 → 自動化 中重新開啟。",
+      "sup.faq.5.s": "剪貼簿歷史為什麼是空的？",
+      "sup.faq.5.p": "macOS 15.4 及以上版本需要「從其他 App 貼上」權限：首次使用時系統會彈窗詢問，請選擇「一律允許」。可在 RightKit 設定 → 權限 頁面查看目前授權狀態。密碼管理器等標記為隱私的內容會被自動跳過，屬正常現象。",
+      "sup.faq.6.s": "如何完全解除安裝？",
+      "sup.faq.6.p": "結束 RightKit（選單列圖示 → 結束），把 /Applications 中的 RightKit.app 移到垃圾桶即可。所有設定資料都保存在本機 App 容器內，會隨 App 一併清除。",
+      "sup.other.h": "其他",
+      "sup.other.p": "隱私相關說明請見<a href=\"privacy.html\">隱私權政策</a>。RightKit 支援 macOS 13 Ventura 及以上版本（Apple Silicon 與 Intel）。",
+
+      /* ---------- privacy.html ---------- */
+      "priv.h1": "隱私權政策",
+      "priv.meta": "生效日期：2026 年 7 月 4 日 · 適用於 RightKit 的 App Store 版與官網版",
+      "priv.lead": "一句話版本：RightKit 不收集、不上傳、不出售你的任何個人資料。沒有帳號系統，沒有分析統計，沒有廣告與追蹤。",
+      "priv.1.h": "1. 我們收集哪些資料",
+      "priv.1.p": "不收集。RightKit 沒有內建任何分析、統計或廣告 SDK，不會將你的檔案內容、檔名、剪貼簿內容、使用行為或裝置資訊上傳到我們的伺服器。",
+      "priv.2.h": "2. 保存在你裝置本機的資料",
+      "priv.2.li1": "<strong>偏好與選單設定</strong>：你的選單佈局、檔案範本、快捷鍵等設定僅保存在本機，用於 App 與 Finder 擴充功能間同步。",
+      "priv.2.li2": "<strong>剪貼簿歷史</strong>（如啟用）：僅保存在本機，隨時可清空；來自密碼管理器等標記為隱私內容的項目會被自動跳過，不會記錄。",
+      "priv.2.li3": "<strong>資料夾存取授權</strong>（App Store 版）：你授權的資料夾以 macOS 安全範圍書籤形式保存在本機，僅用於執行你主動觸發的檔案操作。",
+      "priv.2.p": "以上資料均不會離開你的裝置。刪除 App 即刪除全部資料。",
+      "priv.3.h": "3. 檔案存取",
+      "priv.3.p": "RightKit 僅在你主動點擊右鍵選單或快捷鍵時才對相應檔案執行操作（新建、移動、壓縮等），不會在背景掃描或讀取你的檔案。App Store 版運行在 macOS 沙盒中，存取任何資料夾前都需要你明確授權。",
+      "priv.4.h": "4. 網路請求",
+      "priv.4.p": "RightKit 本身不上傳任何資料。以下場景會產生必要的網路通訊：",
+      "priv.4.li1": "<strong>App 內購買 / 恢復購買</strong>（App Store 版）：由 Apple 的 StoreKit 完成，受 <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple 隱私權政策</a>約束，我們無法接觸你的付款資訊。",
+      "priv.4.li2": "<strong>試用狀態校驗</strong>（如啟用）：透過 Apple DeviceCheck 框架校驗試用資格，僅傳輸 Apple 產生的匿名裝置權杖，不包含任何個人資訊。",
+      "priv.4.li3": "<strong>License 啟用</strong>（官網版）：啟用時會將你輸入的啟用碼與匿名的裝置識別碼傳送至授權校驗服務，僅用於驗證啟用碼有效性與啟用台數限制，不與任何個人身分關聯。",
+      "priv.5.h": "5. 第三方服務",
+      "priv.5.p": "RightKit 不整合任何第三方分析、廣告或社群 SDK。",
+      "priv.6.h": "6. 兒童隱私",
+      "priv.6.p": "RightKit 是一款通用效率工具，不面向 13 歲以下兒童，也不會有意收集任何兒童資訊（如第 1 條所述，我們不收集任何人的資訊）。",
+      "priv.7.h": "7. 政策變更",
+      "priv.7.p": "如本政策發生實質性變更，我們會在本頁面更新並調整生效日期。持續使用 RightKit 即表示你接受更新後的政策。",
+      "priv.8.h": "8. 聯絡我們",
+      "priv.8.p": "對本政策有任何疑問，請透過 <a href=\"support.html\">技術支援頁面</a> 聯絡我們。"
+    },
+
+    /* ============================= English ============================= */
+    "en": {
+      "meta.title.index": "RightKit — A More Powerful Finder Right-Click Menu",
+      "meta.desc.index": "RightKit is a macOS Finder context-menu enhancer: new files, open in terminal, copy path, cut & paste, clipboard history. One-time purchase, yours forever.",
+      "meta.title.support": "Support — RightKit",
+      "meta.desc.support": "RightKit support: getting-started guide, FAQ and how to reach us.",
+      "meta.title.privacy": "Privacy Policy — RightKit",
+      "meta.desc.privacy": "RightKit Privacy Policy: we collect, upload, and sell none of your data.",
+
+      "common.iconAlt": "RightKit icon",
+      "common.back": "← Back to home",
+      "common.home": "Home",
+      "common.privacy": "Privacy",
+      "common.support": "Support",
+
+      "nav.features": "Features",
+      "nav.pricing": "Pricing",
+      "nav.faq": "FAQ",
+      "nav.cta": "Get RightKit",
+
+      "hero.badge": "The first context-menu tool built for macOS 26 Liquid Glass",
+      "hero.h1": "Your right-click menu,<br><span class=\"grad\">the way it should be</span>",
+      "hero.sub": "RightKit puts the actions that should have been there all along — New File, Open in Terminal, Copy Path — natively back into the Finder context menu. Light, fast, always at hand.",
+      "hero.btnStore": "Download on the App Store",
+      "hero.btnDmg": "Download DMG",
+      "hero.note": "Free trial · One-time purchase, yours forever · No subscription",
+
+      "menu.newFile": "New File",
+      "menu.cut": "Cut",
+      "menu.paste": "Paste",
+      "menu.copyPath": "Copy Path",
+      "menu.openTerminal": "Open in Terminal",
+      "menu.moveTo": "Move To…",
+      "menu.showHidden": "Show Hidden Files",
+      "menu.deleteForever": "Delete Permanently",
+      "menu.grpTerminal": "Terminal",
+      "menu.grpEditor": "Editors",
+      "menu.grpIDE": "IDE",
+
+      "feat.kicker": "Features",
+      "feat.h2": "The right-click actions you wait for every day",
+      "feat.sub": "No window switching, no extra apps — every high-frequency file action, done in two clicks.",
+      "feat.1.h": "New File",
+      "feat.1.p": "Create from 20+ templates in one click: code files like Swift, Python and TS; Markdown docs; and blank Office files for Word, Excel and Keynote.",
+      "feat.2.h": "Open in Terminal / Editor",
+      "feat.2.p": "Jump straight to the current folder in Terminal, iTerm2, Warp or Alacritty — or open it in VS Code, Cursor, Xcode or IDEA. Installed apps are detected automatically.",
+      "feat.3.h": "Copy Path, 6 Formats",
+      "feat.3.p": "Absolute, relative, POSIX, <code>~/</code>-relative, filename only… whatever you need for writing code or sending a message.",
+      "feat.4.h": "True Cut & Paste",
+      "feat.4.p": "The feature Windows users have wanted for a decade: right-click to cut a file, paste it in the destination folder. Done.",
+      "feat.5.h": "Move to Frequent Folders",
+      "feat.5.p": "One click to Downloads, Documents or Desktop — and it remembers where you moved things recently. No more dragging files around.",
+      "feat.6.h": "Clipboard History",
+      "feat.6.p": "A menu-bar clipboard history that brings back anything you copied. Private content from password managers is skipped automatically.",
+      "feat.7.h": "Hidden Files Toggle",
+      "feat.7.p": "Toggle hidden files on and off with a single click — no more memorizing <code>⌘⇧.</code> or typing commands.",
+      "feat.8.h": "Global Shortcuts",
+      "feat.8.p": "Bind shortcuts to your most-used actions and trigger them instantly while Finder is active — no Accessibility permission required.",
+      "feat.9.h": "Fully Customizable Menu",
+      "feat.9.p": "Toggle and reorder every item; add or remove file templates. Your context menu holds only what you need.",
+
+      "price.kicker": "Pricing",
+      "price.h2": "One-Time Purchase, No Subscription",
+      "price.sub": "Try it free, unlock it when you love it. One price, all features, updates forever.",
+      "price.free.h": "Free Trial",
+      "price.free.amount": "Free",
+      "price.free.period": "All features during the trial",
+      "price.free.li1": "Every context-menu feature",
+      "price.free.li2": "No account required",
+      "price.free.li3": "No personal data collected",
+      "price.free.btn": "Coming soon",
+      "price.pro.tag": "Recommended",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ lifetime</span>",
+      "price.pro.period": "One-time purchase · Free updates · No subscription",
+      "price.pro.li1": "All features unlocked forever",
+      "price.pro.li2": "Via App Store in-app purchase or a website license",
+      "price.pro.li3": "Free upgrades to future versions",
+      "price.pro.btn": "Coming soon to the App Store",
+
+      "faq.kicker": "FAQ",
+      "faq.h2": "Frequently Asked Questions",
+      "faq.q1": "Which macOS versions does RightKit support?",
+      "faq.a1": "macOS 13 Ventura and later, with native support for both Apple Silicon and Intel.",
+      "faq.q2": "RightKit isn't showing up in my right-click menu?",
+      "faq.a2": "On first launch, enable RightKit's Finder extension in System Settings → Privacy & Security → Extensions → Added Extensions. The in-app guide walks you through it.",
+      "faq.q3": "Will it slow Finder down or use a lot of resources?",
+      "faq.a3": "No. RightKit is built on Apple's official FinderSync extension mechanism; menus are built on demand and its background memory footprint is tiny.",
+      "faq.q4": "What's the difference between the App Store and website editions?",
+      "faq.a4": "Identical features. The App Store edition unlocks Pro via in-app purchase; the website DMG edition activates with a license key. Either channel is a one-time purchase for lifetime use.",
+      "faq.q5": "Is my data safe?",
+      "faq.a5": "RightKit collects and uploads no file contents or usage data. Clipboard history stays on your Mac and automatically skips content marked private by password managers.",
+
+      "foot.copy": "© 2026 RightKit · Crafted with care for macOS",
+
+      /* ---------- support.html ---------- */
+      "sup.h1": "Support",
+      "sup.meta": "Getting started · FAQ · Contact us",
+      "sup.contact.title": "Contact us",
+      "sup.contact.p": "Hit a problem or have a feature idea? Email us — we usually reply within 1–2 business days.",
+      "sup.contact.btn": "Send email",
+      "sup.contact.note": "When reporting an issue, please include: your macOS version, your RightKit version and channel (App Store / website DMG), and steps to reproduce.",
+      "sup.start.h": "Getting started",
+      "sup.start.1.s": "Step 1: Enable the Finder extension",
+      "sup.start.1.p1": "RightKit's right-click menu is provided by a Finder extension that you enable in System Settings on first use (the in-app guide walks you through it):",
+      "sup.start.1.li1": "<strong>macOS 15.4.1 and later / macOS 26</strong>: System Settings → General → Login Items & Extensions → File Providers (or “Added Extensions”) → tick RightKit",
+      "sup.start.1.li2": "<strong>macOS 13 / 14</strong>: System Settings → Privacy & Security → Extensions → Added Extensions → tick RightKit",
+      "sup.start.1.li3": "<strong>macOS 15.0–15.4.0</strong>: these versions have no extension toggle in System Settings. Follow the in-app prompt to copy the command <code>pluginkit -e use -i com.rightkit.app.findersync</code> into Terminal and run it",
+      "sup.start.1.p2": "If the menu doesn't appear right away after enabling, relaunch Finder (⌥-right-click Finder in the Dock → Relaunch), or log out and back in.",
+      "sup.start.2.s": "Step 2 (App Store edition): Authorize folders",
+      "sup.start.2.p": "The App Store edition runs in the macOS App Sandbox and needs your authorization before performing file operations. We recommend opening RightKit Settings → Permissions → Folder Access, clicking “Authorize Folder…” and picking your Home folder (🏠) — one grant covers all your common locations. You can also authorize folders one at a time via the prompt shown the first time you use each.",
+      "sup.faq.h": "FAQ",
+      "sup.faq.1.s": "No RightKit items in the right-click menu?",
+      "sup.faq.1.li1": "Confirm the extension is enabled (see “Getting started”, Step 1 above)",
+      "sup.faq.1.li2": "Relaunch Finder: ⌥ (Option)-right-click the Finder icon in the Dock → Relaunch",
+      "sup.faq.1.li3": "Confirm the RightKit app is running (its icon should be in the menu bar)",
+      "sup.faq.1.li4": "Still nothing? Open RightKit Settings → Permissions and work through each check",
+      "sup.faq.2.s": "How do I restore Pro on a new Mac after buying? (App Store edition)",
+      "sup.faq.2.p": "Sign in to the App Store with the same Apple Account you bought with, open RightKit Settings → About → click “Restore Purchases”. No need to pay again.",
+      "sup.faq.3.s": "How do I activate a license key? (website DMG edition)",
+      "sup.faq.3.p": "Open RightKit Settings → About and paste the activation code from your purchase email (format XXXX-XXXX-XXXX-XXXX), then click “Activate”. Each code works on a limited number of devices; if you switch devices and hit the activation limit, email us to reset it.",
+      "sup.faq.4.s": "“Show Hidden Files” does nothing when I click it?",
+      "sup.faq.4.p": "This feature requires relaunching Finder to take effect; RightKit does that automatically and restores your open windows. The first time, macOS may ask “RightKit wants to control Finder” for automation access — choose “Allow”. If you declined by mistake, re-enable it in System Settings → Privacy & Security → Automation.",
+      "sup.faq.5.s": "Why is my clipboard history empty?",
+      "sup.faq.5.p": "macOS 15.4 and later require the “Paste from Other Apps” permission: macOS prompts you on first use — choose “Always Allow”. You can check the current status in RightKit Settings → Permissions. Content marked private (e.g. from password managers) is skipped automatically — that's expected.",
+      "sup.faq.6.s": "How do I fully uninstall?",
+      "sup.faq.6.p": "Quit RightKit (menu-bar icon → Quit) and move RightKit.app from /Applications to the Trash. All configuration lives in the app's local container and is removed along with the app.",
+      "sup.other.h": "More",
+      "sup.other.p": "For privacy details, see the <a href=\"privacy.html\">Privacy Policy</a>. RightKit supports macOS 13 Ventura and later (Apple Silicon and Intel).",
+
+      /* ---------- privacy.html ---------- */
+      "priv.h1": "Privacy Policy",
+      "priv.meta": "Effective date: July 4, 2026 · Applies to both the App Store and website editions of RightKit",
+      "priv.lead": "TL;DR: RightKit does not collect, upload, or sell any of your personal data. No accounts, no analytics, no ads, no tracking.",
+      "priv.1.h": "1. Data We Collect",
+      "priv.1.p": "None. RightKit contains no analytics, advertising, or tracking SDKs. Your file contents, file names, clipboard contents, usage behavior, and device information are never uploaded to our servers.",
+      "priv.2.h": "2. Data Stored Locally on Your Device",
+      "priv.2.li1": "<strong>Preferences and menu configuration</strong> — stored on your Mac only, used to sync settings between the app and its Finder extension.",
+      "priv.2.li2": "<strong>Clipboard history</strong> (if enabled) — stored on your Mac only and can be cleared at any time; items marked as concealed (e.g. from password managers) are automatically skipped.",
+      "priv.2.li3": "<strong>Folder authorizations</strong> (App Store edition) — folders you grant are stored as macOS security-scoped bookmarks on your Mac only, used solely to perform actions you explicitly trigger.",
+      "priv.2.p": "None of this data ever leaves your device. Deleting the app deletes all of it.",
+      "priv.3.h": "3. File Access",
+      "priv.3.p": "RightKit only touches files when you explicitly invoke a context-menu action or shortcut (new, move, compress, etc.). It never scans or reads your files in the background. The App Store edition runs in the macOS App Sandbox and requires your explicit authorization before accessing any folder.",
+      "priv.4.h": "4. Network Requests",
+      "priv.4.p": "RightKit itself uploads no data. The following scenarios involve necessary network communication:",
+      "priv.4.li1": "<strong>In-app purchase / restore</strong> (App Store edition) — handled entirely by Apple's StoreKit under <a href=\"https://www.apple.com/legal/privacy/\" target=\"_blank\" rel=\"noopener\">Apple's Privacy Policy</a>; we never see your payment details.",
+      "priv.4.li2": "<strong>Trial verification</strong> (if enabled) — uses Apple's DeviceCheck framework, transmitting only an anonymous Apple-generated device token with no personal information.",
+      "priv.4.li3": "<strong>License activation</strong> (website edition) — your license key and an anonymous device identifier are sent to the license-validation service solely to verify the key and enforce activation limits; they are not linked to any personal identity.",
+      "priv.5.h": "5. Third-Party Services",
+      "priv.5.p": "RightKit integrates no third-party analytics, advertising, or social SDKs.",
+      "priv.6.h": "6. Children's Privacy",
+      "priv.6.p": "RightKit is a general-purpose utility not directed at children under 13, and — as stated above — collects no information from anyone.",
+      "priv.7.h": "7. Changes to This Policy",
+      "priv.7.p": "Material changes will be posted on this page with an updated effective date. Continued use of RightKit means you accept the updated policy.",
+      "priv.8.h": "8. Contact",
+      "priv.8.p": "Questions about this policy? Reach us via the <a href=\"support.html\">support page</a>."
+    },
+
+    /* ============================= 日本語 =============================
+     * ホームページ全文を翻訳。サポート／プライバシーの長文は英語に自動フォールバック
+     * （アプリ本体の挙動と同じ）。 */
+    "ja": {
+      "meta.title.index": "RightKit — Finder の右クリックメニューをもっと強力に",
+      "meta.desc.index": "RightKit は macOS の Finder 右クリックメニュー拡張ツール：新規ファイル、ターミナルで開く、パスをコピー、カット＆ペースト、クリップボード履歴。買い切りでずっと使えます。",
+      "common.iconAlt": "RightKit アイコン",
+      "common.back": "← ホームに戻る",
+      "common.home": "ホーム",
+      "common.privacy": "プライバシーポリシー",
+      "common.support": "サポート",
+      "nav.features": "機能",
+      "nav.pricing": "価格",
+      "nav.faq": "FAQ",
+      "nav.cta": "今すぐ入手",
+      "hero.badge": "macOS 26 Liquid Glass に対応した初の右クリックツール",
+      "hero.h1": "右クリックメニューを、<br><span class=\"grad\">あるべき姿に</span>",
+      "hero.sub": "「新規ファイル」「ターミナルで開く」「パスをコピー」——本来あるべき操作を、RightKit が Finder の右クリックメニューにネイティブで戻します。軽量・高速・いつでも手の届く場所に。",
+      "hero.btnStore": "App Store でダウンロード",
+      "hero.btnDmg": "DMG をダウンロード",
+      "hero.note": "無料トライアル · 買い切り、ずっと使える · サブスクなし",
+      "menu.newFile": "新規ファイル",
+      "menu.cut": "カット",
+      "menu.paste": "ペースト",
+      "menu.copyPath": "パスをコピー",
+      "menu.openTerminal": "ターミナルで開く",
+      "menu.moveTo": "移動先…",
+      "menu.showHidden": "隠しファイルを表示",
+      "menu.deleteForever": "完全に削除",
+      "menu.grpTerminal": "ターミナル",
+      "menu.grpEditor": "エディタ",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "機能",
+      "feat.h2": "毎日待ち望んでいた右クリック操作",
+      "feat.sub": "ウインドウを切り替えず、別の App も開かず——よく使うファイル操作を 2 クリック以内で。",
+      "feat.1.h": "新規ファイル",
+      "feat.1.p": "20 種類以上のテンプレートからワンクリックで作成：Swift、Python、TS などのコードファイル、Markdown 文書、Word・Excel・Keynote などの Office 空ファイルも。",
+      "feat.2.h": "ターミナル / エディタで開く",
+      "feat.2.p": "現在のフォルダを Terminal、iTerm2、Warp、Alacritty で直接開く。VS Code、Cursor、Xcode、IDEA にも対応——インストール済みアプリを自動検出します。",
+      "feat.3.h": "パスをコピー、6 つの形式",
+      "feat.3.p": "絶対パス、相対パス、POSIX、<code>~/</code> 相対パス、ファイル名のみ……コーディングにもメッセージにも、必要な形式で。",
+      "feat.4.h": "本物のカット＆ペースト",
+      "feat.4.p": "Windows ユーザーが 10 年待ち望んだ機能：右クリックでファイルをカットし、目的のフォルダでペースト。それだけ。",
+      "feat.5.h": "よく使うフォルダへ移動",
+      "feat.5.p": "ダウンロード、書類、デスクトップへワンクリック。最近移動した場所も記憶——ファイル整理でドラッグを繰り返す必要はもうありません。",
+      "feat.6.h": "クリップボード履歴",
+      "feat.6.p": "メニューバーに常駐するクリップボード履歴で、コピーしたテキストをいつでも呼び戻せます。パスワードマネージャなどの機密内容は自動でスキップ。",
+      "feat.7.h": "隠しファイルの切り替え",
+      "feat.7.p": "ワンクリックで隠しファイルの表示・非表示を切り替え。<code>⌘⇧.</code> を覚える必要も、コマンドを打つ必要もありません。",
+      "feat.8.h": "グローバルショートカット",
+      "feat.8.p": "よく使う操作にショートカットを割り当て、Finder が最前面のときに即実行——アクセシビリティ権限は不要です。",
+      "feat.9.h": "メニューを完全カスタマイズ",
+      "feat.9.p": "各項目のオン・オフや並べ替え、ファイルテンプレートの追加・削除も自在。あなたの右クリックメニューに、必要なものだけを。",
+      "price.kicker": "価格",
+      "price.h2": "買い切り、サブスクなし",
+      "price.sub": "まず無料で試して、気に入ったら解除。ひとつの価格で全機能、アップデートもずっと無料。",
+      "price.free.h": "無料トライアル",
+      "price.free.amount": "無料",
+      "price.free.period": "トライアル中は全機能を開放",
+      "price.free.li1": "すべての右クリックメニュー機能",
+      "price.free.li2": "アカウント登録不要",
+      "price.free.li3": "個人データを一切収集しません",
+      "price.free.btn": "まもなく公開",
+      "price.pro.tag": "おすすめ",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ 買い切り</span>",
+      "price.pro.period": "買い切り · 無料アップデート · サブスクなし",
+      "price.pro.li1": "全機能を永久に解除",
+      "price.pro.li2": "App Store 内課金または公式サイトのライセンス",
+      "price.pro.li3": "今後のバージョンへ無料アップグレード",
+      "price.pro.btn": "まもなく App Store に登場",
+      "faq.kicker": "FAQ",
+      "faq.h2": "よくある質問",
+      "faq.q1": "RightKit はどの macOS バージョンに対応していますか？",
+      "faq.a1": "macOS 13 Ventura 以降で、Apple Silicon と Intel の両方にネイティブ対応しています。",
+      "faq.q2": "インストール後、右クリックメニューに RightKit が表示されません？",
+      "faq.a2": "初回起動時に「システム設定 → プライバシーとセキュリティ → 機能拡張 → 追加された機能拡張」で RightKit の Finder 機能拡張を有効にする必要があります。App 内のガイドが手順を案内します。",
+      "faq.q3": "Finder が遅くなったり、リソースを多く消費したりしませんか？",
+      "faq.a3": "いいえ。RightKit は Apple 公式の FinderSync 拡張の仕組みで実装され、メニューは必要時に構築されるため、バックグラウンドのメモリ使用量はごくわずかです。",
+      "faq.q4": "App Store 版と公式サイト版の違いは？",
+      "faq.a4": "機能は完全に同一です。App Store 版はアプリ内課金で Pro を解除し、公式サイトの DMG 版はライセンスキーで有効化します。どちらのチャネルも一度の購入で永久に使えます。",
+      "faq.q5": "私のデータは安全ですか？",
+      "faq.a5": "RightKit はファイルの内容や使用データを一切収集・アップロードしません。クリップボード履歴は本体内にのみ保存され、パスワードマネージャが機密とマークした内容は自動でスキップされます。",
+      "foot.copy": "© 2026 RightKit · macOS のために丁寧に作りました"
+    },
+
+    /* ============================= 한국어 ============================= */
+    "ko": {
+      "meta.title.index": "RightKit — 더 강력한 Finder 오른쪽 클릭 메뉴",
+      "meta.desc.index": "RightKit는 macOS Finder 오른쪽 클릭 메뉴 확장 도구입니다: 새 파일, 터미널에서 열기, 경로 복사, 잘라내기·붙여넣기, 클립보드 기록. 한 번 구매로 평생 사용.",
+      "common.iconAlt": "RightKit 아이콘",
+      "common.back": "← 홈으로 돌아가기",
+      "common.home": "홈",
+      "common.privacy": "개인정보 처리방침",
+      "common.support": "지원",
+      "nav.features": "기능",
+      "nav.pricing": "가격",
+      "nav.faq": "FAQ",
+      "nav.cta": "지금 받기",
+      "hero.badge": "macOS 26 Liquid Glass를 지원하는 최초의 오른쪽 클릭 도구",
+      "hero.h1": "오른쪽 클릭 메뉴를,<br><span class=\"grad\">본래의 모습으로</span>",
+      "hero.sub": "‘새 파일’ ‘터미널에서 열기’ ‘경로 복사’——당연히 있어야 할 동작을 RightKit가 Finder 오른쪽 클릭 메뉴에 기본으로 되돌려 놓습니다. 가볍고, 빠르고, 언제나 손 닿는 곳에.",
+      "hero.btnStore": "App Store에서 다운로드",
+      "hero.btnDmg": "DMG 다운로드",
+      "hero.note": "무료 체험 · 한 번 구매로 평생 사용 · 구독 없음",
+      "menu.newFile": "새 파일",
+      "menu.cut": "잘라내기",
+      "menu.paste": "붙여넣기",
+      "menu.copyPath": "경로 복사",
+      "menu.openTerminal": "터미널에서 열기",
+      "menu.moveTo": "이동…",
+      "menu.showHidden": "숨김 파일 표시",
+      "menu.deleteForever": "완전히 삭제",
+      "menu.grpTerminal": "터미널",
+      "menu.grpEditor": "편집기",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "기능",
+      "feat.h2": "매일 기다리던 그 오른쪽 클릭 동작들",
+      "feat.sub": "창을 바꾸지 않고, 새 앱을 열지 않고——자주 쓰는 모든 파일 작업을 두 번의 클릭 안에.",
+      "feat.1.h": "새 파일",
+      "feat.1.p": "20가지 이상의 템플릿으로 한 번에 생성: Swift, Python, TS 같은 코드 파일, Markdown 문서, 그리고 Word·Excel·Keynote 등 Office 빈 파일까지.",
+      "feat.2.h": "터미널 / 편집기에서 열기",
+      "feat.2.p": "현재 폴더를 Terminal, iTerm2, Warp, Alacritty로 바로 열거나 VS Code, Cursor, Xcode, IDEA로 열 수 있습니다——설치된 앱을 자동으로 감지합니다.",
+      "feat.3.h": "경로 복사, 6가지 형식",
+      "feat.3.p": "절대 경로, 상대 경로, POSIX, <code>~/</code> 상대 경로, 파일 이름만……코딩할 때도 메시지 보낼 때도 원하는 형식으로.",
+      "feat.4.h": "진짜 잘라내기·붙여넣기",
+      "feat.4.p": "Windows 사용자가 10년을 기다린 기능: 오른쪽 클릭으로 파일을 잘라내고, 대상 폴더에서 붙여넣기. 그게 전부입니다.",
+      "feat.5.h": "자주 쓰는 폴더로 이동",
+      "feat.5.p": "다운로드, 문서, 데스크탑으로 한 번에. 최근에 옮긴 위치도 기억합니다——파일 정리하느라 이리저리 끌 필요가 없어요.",
+      "feat.6.h": "클립보드 기록",
+      "feat.6.p": "메뉴 막대에 상주하는 클립보드 기록으로 복사한 텍스트를 언제든 되찾으세요. 비밀번호 관리자 같은 개인 정보는 자동으로 건너뜁니다.",
+      "feat.7.h": "숨김 파일 토글",
+      "feat.7.p": "한 번의 클릭으로 숨김 파일 표시를 켜고 끕니다. 더 이상 <code>⌘⇧.</code>를 외우거나 명령어를 입력할 필요가 없습니다.",
+      "feat.8.h": "전역 단축키",
+      "feat.8.p": "자주 쓰는 동작에 단축키를 지정하고 Finder가 활성일 때 바로 실행하세요——손쉬운 사용 권한이 필요 없습니다.",
+      "feat.9.h": "메뉴 완전 맞춤 설정",
+      "feat.9.p": "모든 항목을 켜고 끄고 순서를 바꾸며, 파일 템플릿도 추가·삭제할 수 있습니다. 당신의 오른쪽 클릭 메뉴에 필요한 것만.",
+      "price.kicker": "가격",
+      "price.h2": "한 번 구매, 구독 없음",
+      "price.sub": "먼저 무료로 써 보고 마음에 들면 잠금 해제. 하나의 가격에 모든 기능, 업데이트도 평생 무료.",
+      "price.free.h": "무료 체험",
+      "price.free.amount": "무료",
+      "price.free.period": "체험 기간 동안 전체 기능 개방",
+      "price.free.li1": "모든 오른쪽 클릭 메뉴 기능",
+      "price.free.li2": "계정 등록 불필요",
+      "price.free.li3": "어떤 개인 정보도 수집하지 않음",
+      "price.free.btn": "곧 공개 예정",
+      "price.pro.tag": "추천",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ 평생</span>",
+      "price.pro.period": "한 번 구매 · 무료 업데이트 · 구독 없음",
+      "price.pro.li1": "모든 기능 평생 잠금 해제",
+      "price.pro.li2": "App Store 인앱 구매 또는 공식 사이트 라이선스",
+      "price.pro.li3": "향후 버전 무료 업그레이드",
+      "price.pro.btn": "곧 App Store 출시",
+      "faq.kicker": "FAQ",
+      "faq.h2": "자주 묻는 질문",
+      "faq.q1": "RightKit는 어떤 macOS 버전을 지원하나요?",
+      "faq.a1": "macOS 13 Ventura 이상이며 Apple Silicon과 Intel을 모두 기본 지원합니다.",
+      "faq.q2": "설치 후 오른쪽 클릭 메뉴에 RightKit가 보이지 않아요?",
+      "faq.a2": "처음 사용할 때 ‘시스템 설정 → 개인정보 보호 및 보안 → 확장 프로그램 → 추가된 확장 프로그램’에서 RightKit의 Finder 확장을 켜야 합니다. 앱 내 가이드가 이 과정을 안내합니다.",
+      "faq.q3": "Finder가 느려지거나 리소스를 많이 쓰나요?",
+      "faq.a3": "아니요. RightKit는 Apple 공식 FinderSync 확장 방식으로 구현되어 메뉴를 필요할 때 구성하며, 백그라운드 메모리 사용량이 매우 적습니다.",
+      "faq.q4": "App Store 버전과 공식 사이트 버전의 차이는?",
+      "faq.a4": "기능은 완전히 동일합니다. App Store 버전은 인앱 구매로 Pro를 잠금 해제하고, 공식 사이트 DMG 버전은 라이선스 키로 활성화합니다. 두 경로 모두 한 번 구매로 평생 사용할 수 있습니다.",
+      "faq.q5": "제 데이터는 안전한가요?",
+      "faq.a5": "RightKit는 파일 내용이나 사용 데이터를 수집·업로드하지 않습니다. 클립보드 기록은 사용자 Mac에만 저장되며 비밀번호 관리자가 비공개로 표시한 내용은 자동으로 건너뜁니다.",
+      "foot.copy": "© 2026 RightKit · macOS를 위해 정성껏 만들었습니다"
+    },
+
+    /* ============================= Français ============================= */
+    "fr": {
+      "meta.title.index": "RightKit — Un menu contextuel Finder plus puissant",
+      "meta.desc.index": "RightKit est un outil d'amélioration du menu contextuel du Finder sur macOS : nouveaux fichiers, ouvrir dans le terminal, copier le chemin, couper-coller, historique du presse-papiers. Achat unique, à vous pour toujours.",
+      "common.iconAlt": "Icône RightKit",
+      "common.back": "← Retour à l'accueil",
+      "common.home": "Accueil",
+      "common.privacy": "Confidentialité",
+      "common.support": "Assistance",
+      "nav.features": "Fonctions",
+      "nav.pricing": "Tarif",
+      "nav.faq": "FAQ",
+      "nav.cta": "Obtenir",
+      "hero.badge": "Le premier outil de menu contextuel conçu pour macOS 26 Liquid Glass",
+      "hero.h1": "Votre menu contextuel,<br><span class=\"grad\">comme il devrait être</span>",
+      "hero.sub": "RightKit remet nativement dans le menu contextuel du Finder les actions qui auraient toujours dû s'y trouver — Nouveau fichier, Ouvrir dans le terminal, Copier le chemin. Léger, rapide, toujours à portée de clic.",
+      "hero.btnStore": "Télécharger sur l'App Store",
+      "hero.btnDmg": "Télécharger le DMG",
+      "hero.note": "Essai gratuit · Achat unique, à vous pour toujours · Sans abonnement",
+      "menu.newFile": "Nouveau fichier",
+      "menu.cut": "Couper",
+      "menu.paste": "Coller",
+      "menu.copyPath": "Copier le chemin",
+      "menu.openTerminal": "Ouvrir dans le terminal",
+      "menu.moveTo": "Déplacer vers…",
+      "menu.showHidden": "Afficher les fichiers cachés",
+      "menu.deleteForever": "Supprimer définitivement",
+      "menu.grpTerminal": "Terminal",
+      "menu.grpEditor": "Éditeurs",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "Fonctions",
+      "feat.h2": "Les actions du clic droit que vous attendez chaque jour",
+      "feat.sub": "Sans changer de fenêtre ni ouvrir d'autre app — chaque action fréquente sur vos fichiers, en deux clics.",
+      "feat.1.h": "Nouveau fichier",
+      "feat.1.p": "Créez à partir de plus de 20 modèles en un clic : fichiers de code comme Swift, Python et TS ; documents Markdown ; et fichiers Office vierges pour Word, Excel et Keynote.",
+      "feat.2.h": "Ouvrir dans le terminal / l'éditeur",
+      "feat.2.p": "Accédez directement au dossier courant dans Terminal, iTerm2, Warp ou Alacritty — ou ouvrez-le dans VS Code, Cursor, Xcode ou IDEA. Les apps installées sont détectées automatiquement.",
+      "feat.3.h": "Copier le chemin, 6 formats",
+      "feat.3.p": "Absolu, relatif, POSIX, relatif à <code>~/</code>, nom de fichier seul… le format qu'il vous faut pour coder ou écrire un message.",
+      "feat.4.h": "Un vrai couper-coller",
+      "feat.4.p": "La fonction que les utilisateurs de Windows attendent depuis dix ans : clic droit pour couper un fichier, coller dans le dossier de destination. C'est tout.",
+      "feat.5.h": "Déplacer vers vos dossiers fréquents",
+      "feat.5.p": "Un clic vers Téléchargements, Documents ou Bureau — et RightKit retient où vous avez déplacé vos fichiers récemment. Fini les glisser-déposer à répétition.",
+      "feat.6.h": "Historique du presse-papiers",
+      "feat.6.p": "Un historique du presse-papiers dans la barre des menus qui retrouve tout ce que vous avez copié. Le contenu privé des gestionnaires de mots de passe est ignoré automatiquement.",
+      "feat.7.h": "Basculer les fichiers cachés",
+      "feat.7.p": "Affichez ou masquez les fichiers cachés d'un seul clic — plus besoin de mémoriser <code>⌘⇧.</code> ni de taper des commandes.",
+      "feat.8.h": "Raccourcis globaux",
+      "feat.8.p": "Associez des raccourcis à vos actions les plus fréquentes et déclenchez-les instantanément quand le Finder est actif — sans autorisation d'accessibilité.",
+      "feat.9.h": "Menu entièrement personnalisable",
+      "feat.9.p": "Activez, désactivez et réorganisez chaque élément ; ajoutez ou supprimez des modèles de fichiers. Votre menu contextuel ne contient que ce dont vous avez besoin.",
+      "price.kicker": "Tarif",
+      "price.h2": "Achat unique, sans abonnement",
+      "price.sub": "Essayez gratuitement, débloquez quand vous l'adoptez. Un prix, toutes les fonctions, des mises à jour à vie.",
+      "price.free.h": "Essai gratuit",
+      "price.free.amount": "Gratuit",
+      "price.free.period": "Toutes les fonctions pendant l'essai",
+      "price.free.li1": "Toutes les fonctions du menu contextuel",
+      "price.free.li2": "Aucun compte requis",
+      "price.free.li3": "Aucune donnée personnelle collectée",
+      "price.free.btn": "Bientôt disponible",
+      "price.pro.tag": "Recommandé",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ à vie</span>",
+      "price.pro.period": "Achat unique · Mises à jour gratuites · Sans abonnement",
+      "price.pro.li1": "Toutes les fonctions débloquées à vie",
+      "price.pro.li2": "Via achat intégré App Store ou licence du site officiel",
+      "price.pro.li3": "Mises à niveau gratuites vers les futures versions",
+      "price.pro.btn": "Bientôt sur l'App Store",
+      "faq.kicker": "FAQ",
+      "faq.h2": "Questions fréquentes",
+      "faq.q1": "Quelles versions de macOS RightKit prend-il en charge ?",
+      "faq.a1": "macOS 13 Ventura et versions ultérieures, avec prise en charge native d'Apple Silicon et d'Intel.",
+      "faq.q2": "RightKit n'apparaît pas dans mon menu contextuel ?",
+      "faq.a2": "Au premier lancement, activez l'extension Finder de RightKit dans Réglages Système → Confidentialité et sécurité → Extensions → Extensions ajoutées. Le guide intégré vous accompagne.",
+      "faq.q3": "Est-ce que cela ralentit le Finder ou consomme beaucoup de ressources ?",
+      "faq.a3": "Non. RightKit repose sur le mécanisme d'extension FinderSync officiel d'Apple ; les menus sont construits à la demande et son empreinte mémoire en arrière-plan est minuscule.",
+      "faq.q4": "Quelle différence entre les versions App Store et site officiel ?",
+      "faq.a4": "Fonctions identiques. La version App Store débloque Pro via un achat intégré ; la version DMG du site s'active avec une clé de licence. Chaque canal est un achat unique pour une utilisation à vie.",
+      "faq.q5": "Mes données sont-elles en sécurité ?",
+      "faq.a5": "RightKit ne collecte ni ne transmet aucun contenu de fichier ni donnée d'usage. L'historique du presse-papiers reste sur votre Mac et ignore automatiquement le contenu marqué comme privé par les gestionnaires de mots de passe.",
+      "foot.copy": "© 2026 RightKit · Conçu avec soin pour macOS"
+    },
+
+    /* ============================= Deutsch ============================= */
+    "de": {
+      "meta.title.index": "RightKit — Ein leistungsfähigeres Finder-Kontextmenü",
+      "meta.desc.index": "RightKit ist ein Erweiterungstool für das Finder-Kontextmenü unter macOS: neue Dateien, im Terminal öffnen, Pfad kopieren, Ausschneiden & Einfügen, Verlauf der Zwischenablage. Einmal kaufen, für immer nutzen.",
+      "common.iconAlt": "RightKit-Symbol",
+      "common.back": "← Zurück zur Startseite",
+      "common.home": "Start",
+      "common.privacy": "Datenschutz",
+      "common.support": "Support",
+      "nav.features": "Funktionen",
+      "nav.pricing": "Preis",
+      "nav.faq": "FAQ",
+      "nav.cta": "Jetzt holen",
+      "hero.badge": "Das erste Kontextmenü-Tool für macOS 26 Liquid Glass",
+      "hero.h1": "Dein Kontextmenü,<br><span class=\"grad\">so wie es sein sollte</span>",
+      "hero.sub": "RightKit bringt die Aktionen, die schon immer da sein sollten — Neue Datei, Im Terminal öffnen, Pfad kopieren — nativ zurück ins Finder-Kontextmenü. Leicht, schnell, immer griffbereit.",
+      "hero.btnStore": "Im App Store laden",
+      "hero.btnDmg": "DMG herunterladen",
+      "hero.note": "Kostenlose Testversion · Einmalkauf, für immer · Kein Abo",
+      "menu.newFile": "Neue Datei",
+      "menu.cut": "Ausschneiden",
+      "menu.paste": "Einfügen",
+      "menu.copyPath": "Pfad kopieren",
+      "menu.openTerminal": "Im Terminal öffnen",
+      "menu.moveTo": "Bewegen nach…",
+      "menu.showHidden": "Ausgeblendete Dateien anzeigen",
+      "menu.deleteForever": "Endgültig löschen",
+      "menu.grpTerminal": "Terminal",
+      "menu.grpEditor": "Editoren",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "Funktionen",
+      "feat.h2": "Die Rechtsklick-Aktionen, auf die du täglich wartest",
+      "feat.sub": "Kein Fensterwechsel, keine zusätzliche App — jede häufige Dateiaktion in zwei Klicks erledigt.",
+      "feat.1.h": "Neue Datei",
+      "feat.1.p": "Aus über 20 Vorlagen mit einem Klick erstellen: Codedateien wie Swift, Python und TS; Markdown-Dokumente; und leere Office-Dateien für Word, Excel und Keynote.",
+      "feat.2.h": "Im Terminal / Editor öffnen",
+      "feat.2.p": "Springe direkt in den aktuellen Ordner in Terminal, iTerm2, Warp oder Alacritty — oder öffne ihn in VS Code, Cursor, Xcode oder IDEA. Installierte Apps werden automatisch erkannt.",
+      "feat.3.h": "Pfad kopieren, 6 Formate",
+      "feat.3.p": "Absolut, relativ, POSIX, <code>~/</code>-relativ, nur Dateiname … genau das Format, das du zum Programmieren oder Schreiben brauchst.",
+      "feat.4.h": "Echtes Ausschneiden & Einfügen",
+      "feat.4.p": "Die Funktion, auf die Windows-Nutzer seit zehn Jahren warten: per Rechtsklick eine Datei ausschneiden und im Zielordner einfügen. Fertig.",
+      "feat.5.h": "In häufige Ordner verschieben",
+      "feat.5.p": "Ein Klick nach Downloads, Dokumente oder Schreibtisch — und RightKit merkt sich, wohin du zuletzt verschoben hast. Kein ständiges Hin- und Herziehen mehr.",
+      "feat.6.h": "Verlauf der Zwischenablage",
+      "feat.6.p": "Ein Zwischenablage-Verlauf in der Menüleiste, der alles Kopierte zurückholt. Private Inhalte aus Passwortmanagern werden automatisch übersprungen.",
+      "feat.7.h": "Ausgeblendete Dateien umschalten",
+      "feat.7.p": "Blende ausgeblendete Dateien mit einem Klick ein und aus — kein Merken von <code>⌘⇧.</code> und keine Befehle mehr nötig.",
+      "feat.8.h": "Globale Kurzbefehle",
+      "feat.8.p": "Weise deinen häufigsten Aktionen Kurzbefehle zu und löse sie sofort aus, wenn der Finder aktiv ist — ohne Bedienungshilfen-Berechtigung.",
+      "feat.9.h": "Vollständig anpassbares Menü",
+      "feat.9.p": "Jeden Eintrag ein-/ausschalten und neu anordnen; Dateivorlagen hinzufügen oder entfernen. Dein Kontextmenü enthält nur, was du brauchst.",
+      "price.kicker": "Preis",
+      "price.h2": "Einmalkauf, kein Abo",
+      "price.sub": "Erst kostenlos testen, dann freischalten, wenn du es liebst. Ein Preis, alle Funktionen, Updates für immer.",
+      "price.free.h": "Kostenlose Testversion",
+      "price.free.amount": "Gratis",
+      "price.free.period": "Alle Funktionen während des Tests",
+      "price.free.li1": "Alle Kontextmenü-Funktionen",
+      "price.free.li2": "Kein Konto erforderlich",
+      "price.free.li3": "Keine personenbezogenen Daten erfasst",
+      "price.free.btn": "Bald verfügbar",
+      "price.pro.tag": "Empfohlen",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ einmalig</span>",
+      "price.pro.period": "Einmalkauf · Kostenlose Updates · Kein Abo",
+      "price.pro.li1": "Alle Funktionen für immer freigeschaltet",
+      "price.pro.li2": "Per App-Store-In-App-Kauf oder Lizenz von der Website",
+      "price.pro.li3": "Kostenlose Upgrades auf künftige Versionen",
+      "price.pro.btn": "Bald im App Store",
+      "faq.kicker": "FAQ",
+      "faq.h2": "Häufige Fragen",
+      "faq.q1": "Welche macOS-Versionen unterstützt RightKit?",
+      "faq.a1": "macOS 13 Ventura und neuer, mit nativer Unterstützung für Apple Silicon und Intel.",
+      "faq.q2": "RightKit erscheint nicht in meinem Rechtsklick-Menü?",
+      "faq.a2": "Aktiviere beim ersten Start die Finder-Erweiterung von RightKit unter Systemeinstellungen → Datenschutz & Sicherheit → Erweiterungen → Hinzugefügte Erweiterungen. Die integrierte Anleitung führt dich hindurch.",
+      "faq.q3": "Verlangsamt es den Finder oder braucht es viele Ressourcen?",
+      "faq.a3": "Nein. RightKit basiert auf Apples offiziellem FinderSync-Erweiterungsmechanismus; Menüs werden bei Bedarf erstellt und der Speicherbedarf im Hintergrund ist winzig.",
+      "faq.q4": "Was ist der Unterschied zwischen App-Store- und Website-Version?",
+      "faq.a4": "Identische Funktionen. Die App-Store-Version schaltet Pro per In-App-Kauf frei; die DMG-Version der Website wird mit einem Lizenzschlüssel aktiviert. Beide Wege sind ein Einmalkauf zur dauerhaften Nutzung.",
+      "faq.q5": "Sind meine Daten sicher?",
+      "faq.a5": "RightKit erfasst und überträgt keine Dateiinhalte oder Nutzungsdaten. Der Zwischenablage-Verlauf bleibt auf deinem Mac und überspringt automatisch Inhalte, die von Passwortmanagern als privat markiert sind.",
+      "foot.copy": "© 2026 RightKit · Mit Sorgfalt für macOS gemacht"
+    },
+
+    /* ============================= Español ============================= */
+    "es": {
+      "meta.title.index": "RightKit — Un menú contextual del Finder más potente",
+      "meta.desc.index": "RightKit es una herramienta que mejora el menú contextual del Finder en macOS: nuevos archivos, abrir en la terminal, copiar ruta, cortar y pegar, historial del portapapeles. Pago único, tuyo para siempre.",
+      "common.iconAlt": "Icono de RightKit",
+      "common.back": "← Volver al inicio",
+      "common.home": "Inicio",
+      "common.privacy": "Privacidad",
+      "common.support": "Soporte",
+      "nav.features": "Funciones",
+      "nav.pricing": "Precio",
+      "nav.faq": "FAQ",
+      "nav.cta": "Obtener",
+      "hero.badge": "La primera herramienta de menú contextual creada para macOS 26 Liquid Glass",
+      "hero.h1": "Tu menú contextual,<br><span class=\"grad\">como debería ser</span>",
+      "hero.sub": "RightKit devuelve de forma nativa al menú contextual del Finder las acciones que siempre deberían haber estado ahí: Nuevo archivo, Abrir en la terminal, Copiar ruta. Ligero, rápido y siempre a mano.",
+      "hero.btnStore": "Descargar en el App Store",
+      "hero.btnDmg": "Descargar DMG",
+      "hero.note": "Prueba gratis · Pago único, tuyo para siempre · Sin suscripción",
+      "menu.newFile": "Nuevo archivo",
+      "menu.cut": "Cortar",
+      "menu.paste": "Pegar",
+      "menu.copyPath": "Copiar ruta",
+      "menu.openTerminal": "Abrir en la terminal",
+      "menu.moveTo": "Mover a…",
+      "menu.showHidden": "Mostrar archivos ocultos",
+      "menu.deleteForever": "Eliminar permanentemente",
+      "menu.grpTerminal": "Terminal",
+      "menu.grpEditor": "Editores",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "Funciones",
+      "feat.h2": "Las acciones del clic derecho que esperas cada día",
+      "feat.sub": "Sin cambiar de ventana ni abrir otra app: cada acción frecuente con tus archivos, en dos clics.",
+      "feat.1.h": "Nuevo archivo",
+      "feat.1.p": "Crea a partir de más de 20 plantillas con un clic: archivos de código como Swift, Python y TS; documentos Markdown; y archivos de Office en blanco para Word, Excel y Keynote.",
+      "feat.2.h": "Abrir en la terminal / el editor",
+      "feat.2.p": "Ve directo a la carpeta actual en Terminal, iTerm2, Warp o Alacritty, o ábrela en VS Code, Cursor, Xcode o IDEA. Las apps instaladas se detectan automáticamente.",
+      "feat.3.h": "Copiar ruta, 6 formatos",
+      "feat.3.p": "Absoluta, relativa, POSIX, relativa a <code>~/</code>, solo el nombre… el formato que necesites para programar o enviar un mensaje.",
+      "feat.4.h": "Cortar y pegar de verdad",
+      "feat.4.p": "La función que los usuarios de Windows llevan diez años esperando: clic derecho para cortar un archivo y pegarlo en la carpeta de destino. Listo.",
+      "feat.5.h": "Mover a carpetas frecuentes",
+      "feat.5.p": "Un clic a Descargas, Documentos o Escritorio, y recuerda a dónde moviste tus archivos hace poco. Se acabó arrastrar de un lado a otro.",
+      "feat.6.h": "Historial del portapapeles",
+      "feat.6.p": "Un historial del portapapeles en la barra de menús que recupera todo lo que copiaste. El contenido privado de los gestores de contraseñas se omite automáticamente.",
+      "feat.7.h": "Alternar archivos ocultos",
+      "feat.7.p": "Muestra u oculta los archivos ocultos con un solo clic: ya no hay que memorizar <code>⌘⇧.</code> ni escribir comandos.",
+      "feat.8.h": "Atajos globales",
+      "feat.8.p": "Asigna atajos a tus acciones más usadas y actívalos al instante cuando el Finder está activo, sin permiso de accesibilidad.",
+      "feat.9.h": "Menú totalmente personalizable",
+      "feat.9.p": "Activa, desactiva y reordena cada elemento; añade o quita plantillas de archivo. Tu menú contextual solo tiene lo que necesitas.",
+      "price.kicker": "Precio",
+      "price.h2": "Pago único, sin suscripción",
+      "price.sub": "Pruébalo gratis y desbloquéalo cuando te encante. Un precio, todas las funciones, actualizaciones para siempre.",
+      "price.free.h": "Prueba gratis",
+      "price.free.amount": "Gratis",
+      "price.free.period": "Todas las funciones durante la prueba",
+      "price.free.li1": "Todas las funciones del menú contextual",
+      "price.free.li2": "Sin necesidad de cuenta",
+      "price.free.li3": "No se recopilan datos personales",
+      "price.free.btn": "Disponible pronto",
+      "price.pro.tag": "Recomendado",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ de por vida</span>",
+      "price.pro.period": "Pago único · Actualizaciones gratis · Sin suscripción",
+      "price.pro.li1": "Todas las funciones desbloqueadas para siempre",
+      "price.pro.li2": "Mediante compra integrada del App Store o licencia del sitio oficial",
+      "price.pro.li3": "Actualizaciones gratuitas a futuras versiones",
+      "price.pro.btn": "Pronto en el App Store",
+      "faq.kicker": "FAQ",
+      "faq.h2": "Preguntas frecuentes",
+      "faq.q1": "¿Qué versiones de macOS admite RightKit?",
+      "faq.a1": "macOS 13 Ventura y posteriores, con compatibilidad nativa con Apple Silicon e Intel.",
+      "faq.q2": "¿RightKit no aparece en mi menú contextual?",
+      "faq.a2": "En el primer inicio, activa la extensión del Finder de RightKit en Ajustes del Sistema → Privacidad y seguridad → Extensiones → Extensiones añadidas. La guía integrada te acompaña.",
+      "faq.q3": "¿Ralentiza el Finder o consume muchos recursos?",
+      "faq.a3": "No. RightKit se basa en el mecanismo oficial de extensiones FinderSync de Apple; los menús se construyen bajo demanda y su consumo de memoria en segundo plano es mínimo.",
+      "faq.q4": "¿Qué diferencia hay entre la versión del App Store y la del sitio web?",
+      "faq.a4": "Funciones idénticas. La versión del App Store desbloquea Pro mediante compra integrada; la versión DMG del sitio se activa con una clave de licencia. Cada canal es un pago único para uso de por vida.",
+      "faq.q5": "¿Están seguros mis datos?",
+      "faq.a5": "RightKit no recopila ni sube ningún contenido de archivos ni datos de uso. El historial del portapapeles permanece en tu Mac y omite automáticamente el contenido marcado como privado por los gestores de contraseñas.",
+      "foot.copy": "© 2026 RightKit · Hecho con cariño para macOS"
+    },
+
+    /* ============================= Русский ============================= */
+    "ru": {
+      "meta.title.index": "RightKit — Более мощное контекстное меню Finder",
+      "meta.desc.index": "RightKit — инструмент расширения контекстного меню Finder в macOS: новые файлы, открытие в терминале, копирование пути, вырезание и вставка, история буфера обмена. Разовая покупка, навсегда ваша.",
+      "common.iconAlt": "Значок RightKit",
+      "common.back": "← На главную",
+      "common.home": "Главная",
+      "common.privacy": "Конфиденциальность",
+      "common.support": "Поддержка",
+      "nav.features": "Возможности",
+      "nav.pricing": "Цена",
+      "nav.faq": "FAQ",
+      "nav.cta": "Получить",
+      "hero.badge": "Первый инструмент контекстного меню для macOS 26 Liquid Glass",
+      "hero.h1": "Контекстное меню,<br><span class=\"grad\">каким оно должно быть</span>",
+      "hero.sub": "RightKit возвращает в контекстное меню Finder действия, которые всегда должны были там быть, — «Новый файл», «Открыть в терминале», «Копировать путь» — нативно. Лёгкий, быстрый, всегда под рукой.",
+      "hero.btnStore": "Загрузить в App Store",
+      "hero.btnDmg": "Скачать DMG",
+      "hero.note": "Бесплатная пробная версия · Разовая покупка, навсегда · Без подписки",
+      "menu.newFile": "Новый файл",
+      "menu.cut": "Вырезать",
+      "menu.paste": "Вставить",
+      "menu.copyPath": "Копировать путь",
+      "menu.openTerminal": "Открыть в терминале",
+      "menu.moveTo": "Переместить в…",
+      "menu.showHidden": "Показать скрытые файлы",
+      "menu.deleteForever": "Удалить безвозвратно",
+      "menu.grpTerminal": "Терминал",
+      "menu.grpEditor": "Редакторы",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "Возможности",
+      "feat.h2": "Действия правого клика, которых вы ждёте каждый день",
+      "feat.sub": "Без переключения окон и запуска других приложений — каждое частое действие с файлами в два клика.",
+      "feat.1.h": "Новый файл",
+      "feat.1.p": "Создавайте из более чем 20 шаблонов одним кликом: файлы кода вроде Swift, Python и TS; документы Markdown; и пустые файлы Office для Word, Excel и Keynote.",
+      "feat.2.h": "Открыть в терминале / редакторе",
+      "feat.2.p": "Переходите прямо в текущую папку в Terminal, iTerm2, Warp или Alacritty — или открывайте её в VS Code, Cursor, Xcode или IDEA. Установленные приложения определяются автоматически.",
+      "feat.3.h": "Копировать путь, 6 форматов",
+      "feat.3.p": "Абсолютный, относительный, POSIX, относительно <code>~/</code>, только имя файла… нужный формат для кода или сообщения.",
+      "feat.4.h": "Настоящие вырезать и вставить",
+      "feat.4.p": "Функция, которую пользователи Windows ждут десять лет: правый клик, чтобы вырезать файл, и вставка в нужную папку. Готово.",
+      "feat.5.h": "Перемещение в частые папки",
+      "feat.5.p": "Один клик к «Загрузкам», «Документам» или рабочему столу — и RightKit помнит, куда вы недавно перемещали файлы. Больше никакого перетаскивания туда-сюда.",
+      "feat.6.h": "История буфера обмена",
+      "feat.6.p": "История буфера обмена в строке меню возвращает всё, что вы копировали. Личное содержимое из менеджеров паролей пропускается автоматически.",
+      "feat.7.h": "Переключение скрытых файлов",
+      "feat.7.p": "Показывайте и скрывайте скрытые файлы одним кликом — больше не нужно запоминать <code>⌘⇧.</code> или вводить команды.",
+      "feat.8.h": "Глобальные сочетания клавиш",
+      "feat.8.p": "Назначайте сочетания клавиш для частых действий и запускайте их мгновенно, когда Finder активен, — без разрешения универсального доступа.",
+      "feat.9.h": "Полностью настраиваемое меню",
+      "feat.9.p": "Включайте, отключайте и меняйте порядок каждого пункта; добавляйте и удаляйте шаблоны файлов. В вашем контекстном меню только то, что нужно вам.",
+      "price.kicker": "Цена",
+      "price.h2": "Разовая покупка, без подписки",
+      "price.sub": "Сначала попробуйте бесплатно, разблокируйте, когда понравится. Одна цена, все функции, обновления навсегда.",
+      "price.free.h": "Бесплатная пробная версия",
+      "price.free.amount": "Бесплатно",
+      "price.free.period": "Все функции на время пробного периода",
+      "price.free.li1": "Все функции контекстного меню",
+      "price.free.li2": "Регистрация не нужна",
+      "price.free.li3": "Никакие личные данные не собираются",
+      "price.free.btn": "Скоро",
+      "price.pro.tag": "Рекомендуем",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ навсегда</span>",
+      "price.pro.period": "Разовая покупка · Бесплатные обновления · Без подписки",
+      "price.pro.li1": "Все функции разблокированы навсегда",
+      "price.pro.li2": "Через встроенную покупку App Store или лицензию с сайта",
+      "price.pro.li3": "Бесплатные обновления до будущих версий",
+      "price.pro.btn": "Скоро в App Store",
+      "faq.kicker": "FAQ",
+      "faq.h2": "Частые вопросы",
+      "faq.q1": "Какие версии macOS поддерживает RightKit?",
+      "faq.a1": "macOS 13 Ventura и новее, с нативной поддержкой Apple Silicon и Intel.",
+      "faq.q2": "RightKit не появляется в контекстном меню?",
+      "faq.a2": "При первом запуске включите расширение Finder для RightKit в «Системные настройки → Конфиденциальность и безопасность → Расширения → Добавленные расширения». Встроенное руководство поможет пройти этот шаг.",
+      "faq.q3": "Не замедлит ли это Finder и не займёт ли много ресурсов?",
+      "faq.a3": "Нет. RightKit построен на официальном механизме расширений FinderSync от Apple; меню создаются по требованию, а потребление памяти в фоне крайне мало.",
+      "faq.q4": "Чем версия из App Store отличается от версии с сайта?",
+      "faq.a4": "Функции полностью одинаковы. Версия из App Store разблокирует Pro через встроенную покупку; DMG-версия с сайта активируется лицензионным ключом. Каждый вариант — разовая покупка для пожизненного использования.",
+      "faq.q5": "В безопасности ли мои данные?",
+      "faq.a5": "RightKit не собирает и не загружает содержимое файлов или данные об использовании. История буфера обмена хранится только на вашем Mac и автоматически пропускает содержимое, помеченное менеджерами паролей как приватное.",
+      "foot.copy": "© 2026 RightKit · Сделано с заботой для macOS"
+    },
+
+    /* ============================= Português ============================= */
+    "pt": {
+      "meta.title.index": "RightKit — Um menu de contexto do Finder mais poderoso",
+      "meta.desc.index": "O RightKit é uma ferramenta que aprimora o menu de contexto do Finder no macOS: novos arquivos, abrir no terminal, copiar caminho, recortar e colar, histórico da área de transferência. Compra única, seu para sempre.",
+      "common.iconAlt": "Ícone do RightKit",
+      "common.back": "← Voltar ao início",
+      "common.home": "Início",
+      "common.privacy": "Privacidade",
+      "common.support": "Suporte",
+      "nav.features": "Recursos",
+      "nav.pricing": "Preço",
+      "nav.faq": "FAQ",
+      "nav.cta": "Obter",
+      "hero.badge": "A primeira ferramenta de menu de contexto feita para o macOS 26 Liquid Glass",
+      "hero.h1": "O seu menu de contexto,<br><span class=\"grad\">do jeito que deveria ser</span>",
+      "hero.sub": "O RightKit devolve nativamente ao menu de contexto do Finder as ações que sempre deveriam estar lá — Novo arquivo, Abrir no terminal, Copiar caminho. Leve, rápido e sempre à mão.",
+      "hero.btnStore": "Baixar na App Store",
+      "hero.btnDmg": "Baixar DMG",
+      "hero.note": "Teste grátis · Compra única, seu para sempre · Sem assinatura",
+      "menu.newFile": "Novo arquivo",
+      "menu.cut": "Recortar",
+      "menu.paste": "Colar",
+      "menu.copyPath": "Copiar caminho",
+      "menu.openTerminal": "Abrir no terminal",
+      "menu.moveTo": "Mover para…",
+      "menu.showHidden": "Mostrar arquivos ocultos",
+      "menu.deleteForever": "Excluir permanentemente",
+      "menu.grpTerminal": "Terminal",
+      "menu.grpEditor": "Editores",
+      "menu.grpIDE": "IDE",
+      "feat.kicker": "Recursos",
+      "feat.h2": "As ações de clique direito que você espera todos os dias",
+      "feat.sub": "Sem trocar de janela nem abrir outro app — cada ação frequente com arquivos, em dois cliques.",
+      "feat.1.h": "Novo arquivo",
+      "feat.1.p": "Crie a partir de mais de 20 modelos com um clique: arquivos de código como Swift, Python e TS; documentos Markdown; e arquivos do Office em branco para Word, Excel e Keynote.",
+      "feat.2.h": "Abrir no terminal / editor",
+      "feat.2.p": "Vá direto para a pasta atual no Terminal, iTerm2, Warp ou Alacritty — ou abra-a no VS Code, Cursor, Xcode ou IDEA. Os apps instalados são detectados automaticamente.",
+      "feat.3.h": "Copiar caminho, 6 formatos",
+      "feat.3.p": "Absoluto, relativo, POSIX, relativo a <code>~/</code>, só o nome do arquivo… o formato que você precisar para programar ou enviar uma mensagem.",
+      "feat.4.h": "Recortar e colar de verdade",
+      "feat.4.p": "O recurso que os usuários de Windows esperam há dez anos: clique direito para recortar um arquivo e cole na pasta de destino. Pronto.",
+      "feat.5.h": "Mover para pastas frequentes",
+      "feat.5.p": "Um clique para Downloads, Documentos ou Mesa — e ele lembra para onde você moveu os arquivos recentemente. Chega de arrastar de um lado para o outro.",
+      "feat.6.h": "Histórico da área de transferência",
+      "feat.6.p": "Um histórico da área de transferência na barra de menus que traz de volta tudo o que você copiou. Conteúdo privado de gerenciadores de senhas é ignorado automaticamente.",
+      "feat.7.h": "Alternar arquivos ocultos",
+      "feat.7.p": "Mostre ou oculte os arquivos ocultos com um único clique — sem precisar decorar <code>⌘⇧.</code> nem digitar comandos.",
+      "feat.8.h": "Atalhos globais",
+      "feat.8.p": "Atribua atalhos às suas ações mais usadas e acione-as na hora quando o Finder estiver ativo — sem permissão de acessibilidade.",
+      "feat.9.h": "Menu totalmente personalizável",
+      "feat.9.p": "Ative, desative e reordene cada item; adicione ou remova modelos de arquivo. Seu menu de contexto tem só o que você precisa.",
+      "price.kicker": "Preço",
+      "price.h2": "Compra única, sem assinatura",
+      "price.sub": "Experimente grátis e desbloqueie quando gostar. Um preço, todos os recursos, atualizações para sempre.",
+      "price.free.h": "Teste grátis",
+      "price.free.amount": "Grátis",
+      "price.free.period": "Todos os recursos durante o teste",
+      "price.free.li1": "Todos os recursos do menu de contexto",
+      "price.free.li2": "Sem necessidade de conta",
+      "price.free.li3": "Nenhum dado pessoal coletado",
+      "price.free.btn": "Em breve",
+      "price.pro.tag": "Recomendado",
+      "price.pro.h": "RightKit Pro",
+      "price.pro.amount": "¥68 <span>/ vitalício</span>",
+      "price.pro.period": "Compra única · Atualizações grátis · Sem assinatura",
+      "price.pro.li1": "Todos os recursos desbloqueados para sempre",
+      "price.pro.li2": "Via compra no app da App Store ou licença do site oficial",
+      "price.pro.li3": "Upgrades gratuitos para versões futuras",
+      "price.pro.btn": "Em breve na App Store",
+      "faq.kicker": "FAQ",
+      "faq.h2": "Perguntas frequentes",
+      "faq.q1": "Quais versões do macOS o RightKit suporta?",
+      "faq.a1": "macOS 13 Ventura e posteriores, com suporte nativo a Apple Silicon e Intel.",
+      "faq.q2": "O RightKit não aparece no meu menu de contexto?",
+      "faq.a2": "No primeiro início, ative a extensão do Finder do RightKit em Ajustes do Sistema → Privacidade e Segurança → Extensões → Extensões adicionadas. O guia integrado orienta você.",
+      "faq.q3": "Isso deixa o Finder lento ou usa muitos recursos?",
+      "faq.a3": "Não. O RightKit é baseado no mecanismo oficial de extensões FinderSync da Apple; os menus são construídos sob demanda e o uso de memória em segundo plano é mínimo.",
+      "faq.q4": "Qual a diferença entre a versão da App Store e a do site?",
+      "faq.a4": "Recursos idênticos. A versão da App Store desbloqueia o Pro por compra no app; a versão DMG do site é ativada com uma chave de licença. Cada canal é uma compra única para uso vitalício.",
+      "faq.q5": "Meus dados estão seguros?",
+      "faq.a5": "O RightKit não coleta nem envia nenhum conteúdo de arquivo ou dado de uso. O histórico da área de transferência fica no seu Mac e ignora automaticamente conteúdo marcado como privado por gerenciadores de senhas.",
+      "foot.copy": "© 2026 RightKit · Feito com carinho para o macOS"
+    }
+  };
+
+  function detect() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && T[saved]) return saved;
+    } catch (e) {}
+    var prefs = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || "en"];
+    for (var i = 0; i < prefs.length; i++) {
+      var lower = String(prefs[i]).toLowerCase();
+      if (lower.indexOf("zh") === 0) {
+        if (lower.indexOf("hant") >= 0 || lower.indexOf("tw") >= 0 ||
+            lower.indexOf("hk") >= 0 || lower.indexOf("mo") >= 0) {
+          return "zh-Hant";
+        }
+        return "zh-Hans";
+      }
+      // Non-Chinese: match on the 2-letter prefix (en, ja, ko, fr, de, es, ru, pt),
+      // mirroring the app's RKL10n.systemCode logic.
+      var p2 = lower.slice(0, 2);
+      if (T[p2]) return p2;
+    }
+    return "en"; // unsupported languages fall back to English
+  }
+
+  var current = detect();
+
+  function dict() { return T[current] || T.en; }
+  function tr(key) {
+    var d = dict();
+    if (d[key] != null) return d[key];
+    return T.en[key] != null ? T.en[key] : null;
+  }
+
+  function apply() {
+    var page = document.body.getAttribute("data-page") || "index";
+    document.documentElement.lang = current;
+
+    // Text content
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i++) {
+      var v = tr(nodes[i].getAttribute("data-i18n"));
+      if (v != null) nodes[i].textContent = v;
+    }
+    // Inner HTML (values that contain markup)
+    var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+    for (var j = 0; j < htmlNodes.length; j++) {
+      var hv = tr(htmlNodes[j].getAttribute("data-i18n-html"));
+      if (hv != null) htmlNodes[j].innerHTML = hv;
+    }
+    // Attributes: data-i18n-attr="attr:key,attr:key"
+    var attrNodes = document.querySelectorAll("[data-i18n-attr]");
+    for (var k = 0; k < attrNodes.length; k++) {
+      var spec = attrNodes[k].getAttribute("data-i18n-attr").split(",");
+      for (var s = 0; s < spec.length; s++) {
+        var pair = spec[s].split(":");
+        if (pair.length === 2) {
+          var av = tr(pair[1].trim());
+          if (av != null) attrNodes[k].setAttribute(pair[0].trim(), av);
+        }
+      }
+    }
+    // Document title + meta description (per page)
+    var title = tr("meta.title." + page);
+    if (title) document.title = title;
+    var descEl = document.querySelector('meta[name="description"]');
+    var desc = tr("meta.desc." + page);
+    if (descEl && desc) descEl.setAttribute("content", desc);
+
+    // Reflect current language on the switcher
+    var labels = document.querySelectorAll(".lang-cur");
+    for (var l = 0; l < labels.length; l++) labels[l].textContent = SHORT[current];
+    var opts = document.querySelectorAll(".lang-menu [data-lang]");
+    for (var m = 0; m < opts.length; m++) {
+      opts[m].setAttribute("aria-current", opts[m].getAttribute("data-lang") === current ? "true" : "false");
+    }
+  }
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    current = lang;
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    apply();
+  }
+
+  function injectStyles() {
+    var css =
+      ".lang-switch{position:relative;flex:none}" +
+      ".lang-btn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.9rem;font-weight:600;" +
+        "color:var(--text-2,#a1a1aa);background:var(--surface,rgba(255,255,255,.045));" +
+        "border:1px solid var(--border,rgba(255,255,255,.12));border-radius:999px;" +
+        "padding:7px 12px;cursor:pointer;transition:color .15s,border-color .15s,background .15s}" +
+      ".lang-btn:hover{color:var(--text,#f2f2f7);border-color:rgba(249,123,54,.5)}" +
+      ".lang-btn svg{width:15px;height:15px;opacity:.85;flex:none}" +
+      ".lang-btn .chev{width:11px;height:11px;transition:transform .2s}" +
+      ".lang-switch.open .lang-btn .chev{transform:rotate(180deg)}" +
+      ".lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:160px;max-height:min(72vh,440px);overflow-y:auto;padding:6px;" +
+        "background:rgba(25,25,32,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);" +
+        "border:1px solid rgba(255,255,255,.12);border-radius:12px;" +
+        "box-shadow:0 20px 50px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-6px);" +
+        "transition:opacity .18s,transform .18s,visibility .18s;z-index:200}" +
+      ".lang-switch.open .lang-menu{opacity:1;visibility:visible;transform:none}" +
+      ".lang-menu button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;" +
+        "font:inherit;font-size:.92rem;text-align:left;color:var(--text-2,#a1a1aa);background:none;border:0;" +
+        "padding:9px 12px;border-radius:8px;cursor:pointer;transition:background .12s,color .12s}" +
+      ".lang-menu button:hover{background:var(--surface-hover,rgba(255,255,255,.08));color:var(--text,#f2f2f7)}" +
+      ".lang-menu button[aria-current='true']{color:var(--accent,#F2702E);font-weight:600}" +
+      ".lang-menu button[aria-current='true']::after{content:'✓';font-size:.85rem}" +
+      "@media (max-width:640px){.lang-btn .chev{display:none}}";
+    var st = document.createElement("style");
+    st.textContent = css;
+    document.head.appendChild(st);
+  }
+
+  function wireSwitcher() {
+    var switches = document.querySelectorAll(".lang-switch");
+    for (var i = 0; i < switches.length; i++) {
+      (function (sw) {
+        var btn = sw.querySelector(".lang-btn");
+        if (btn) {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var isOpen = sw.classList.toggle("open");
+            btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          });
+        }
+        var opts = sw.querySelectorAll("[data-lang]");
+        for (var j = 0; j < opts.length; j++) {
+          opts[j].addEventListener("click", function () {
+            setLang(this.getAttribute("data-lang"));
+            sw.classList.remove("open");
+            if (btn) btn.setAttribute("aria-expanded", "false");
+          });
+        }
+      })(switches[i]);
+    }
+    document.addEventListener("click", function () {
+      var open = document.querySelectorAll(".lang-switch.open");
+      for (var i = 0; i < open.length; i++) {
+        open[i].classList.remove("open");
+        var b = open[i].querySelector(".lang-btn");
+        if (b) b.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  function init() {
+    injectStyles();
+    wireSwitcher();
+    apply();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  // Expose for debugging / external hooks
+  window.RKI18n = { setLang: setLang, get: function () { return current; }, supported: SUPPORTED, native: NATIVE };
+})();
