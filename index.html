@@ -230,6 +230,44 @@ section { max-width: 1080px; margin: 0 auto; padding: 90px 24px 20px; }
 .price-card li svg { width: 17px; height: 17px; color: var(--accent); flex: none; margin-top: 3px; }
 .price-card .btn-primary, .price-card .btn-secondary { width: 100%; justify-content: center; }
 
+/* ---------- 淘宝购买（仅简体中文显示） ---------- */
+/* 默认隐藏；仅当页面语言为简体中文时展示（i18n apply() 会设置 <html lang>） */
+.taobao-buy { display: none; margin-top: 24px; }
+html[lang="zh-Hans"] .taobao-buy { display: flex; justify-content: center; }
+.taobao-card {
+  display: flex; align-items: center; gap: 26px; flex-wrap: wrap; justify-content: center;
+  max-width: 620px; padding: 24px 30px;
+  background: linear-gradient(180deg, rgba(249,123,54,.10), rgba(255,255,255,.03) 60%);
+  border: 1px solid rgba(249,123,54,.35); border-radius: 20px;
+}
+/* 二维码边缘美化：品牌橙渐变外环 → 纯白内衬（保证扫码留白），投影 + 四角高光 */
+.taobao-qr-frame {
+  position: relative; flex: none;
+  padding: 4px; border-radius: 20px;
+  background: linear-gradient(135deg, #F97B36, #E85E21);
+  box-shadow: 0 10px 34px rgba(242,112,46,.28);
+}
+.taobao-qr-frame::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); pointer-events: none;
+}
+.taobao-qr-inner {
+  background: #fff; border-radius: 16px; padding: 12px; line-height: 0;
+}
+.taobao-qr-inner img { display: block; width: 176px; height: 176px; border-radius: 6px; }
+.taobao-info { text-align: left; min-width: 220px; flex: 1; }
+.taobao-info .t-title {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 8px;
+}
+.taobao-info .t-badge {
+  font-size: .72rem; font-weight: 700; color: #fff; padding: 2px 8px; border-radius: 6px;
+  background: linear-gradient(135deg, #F97B36, #E85E21);
+}
+.taobao-info p { color: var(--text-2); font-size: .96rem; margin: 0 0 6px; }
+.taobao-info .t-hint { color: var(--text-3); font-size: .84rem; margin-top: 10px; }
+@media (max-width: 560px) { .taobao-card { flex-direction: column; text-align: center; } .taobao-info { text-align: center; } }
+
 /* ---------- FAQ ---------- */
 .faq { max-width: 720px; margin: 0 auto; }
 details {
@@ -501,6 +539,22 @@ footer .flinks a:hover { color: var(--text); }
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="price.pro.li3">后续版本免费升级</span></li>
       </ul>
       <a class="btn-primary" href="#" aria-disabled="true" data-i18n="price.pro.btn">即将上架 App Store</a>
+    </div>
+  </div>
+
+  <!-- 淘宝购买（仅简体中文显示，见 CSS html[lang="zh-Hans"]） -->
+  <div class="taobao-buy">
+    <div class="taobao-card">
+      <div class="taobao-qr-frame">
+        <div class="taobao-qr-inner">
+          <img src="taobao-qr.png" alt="淘宝扫码购买 RightKit 专业版" width="176" height="176" loading="lazy">
+        </div>
+      </div>
+      <div class="taobao-info">
+        <div class="t-title">在淘宝购买 <span class="t-badge">淘宝</span></div>
+        <p>打开手机淘宝「扫一扫」，扫描左侧二维码进入 RightKit 商品页购买专业版。</p>
+        <p class="t-hint">购买后按店铺说明获取激活码，在 App「设置 → 关于」中粘贴激活，永久使用。</p>
+      </div>
     </div>
   </div>
 </section>
