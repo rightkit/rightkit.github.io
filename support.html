@@ -177,6 +177,10 @@ footer a:hover { color: var(--text-2); }
     <summary data-i18n="sup.faq.6.s">如何完全卸载？</summary>
     <p data-i18n="sup.faq.6.p">退出 RightKit（菜单栏图标 → 退出），把 /Applications 中的 RightKit.app 移到废纸篓即可。所有配置数据都保存在本机 App 容器内，会随 App 一并清除。</p>
   </details>
+  <details>
+    <summary data-i18n="sup.faq.ai.s">如何用右键「打开 AI 工具」？</summary>
+    <p data-i18n="sup.faq.ai.p">先在系统里装好对应的 AI 命令行工具（如 Claude Code、Gemini CLI、通义千问 qwen 等）。RightKit 会自动检测已安装的 CLI，在「设置 → 打开 AI 工具」中勾选要用的工具、选择默认终端；需要时可勾选 --dangerously-skip-permissions 等参数或自定义。之后右键任意文件夹 → 「打开 AI 工具」即可在该目录用默认终端运行。直接运行命令目前在 Terminal 与 iTerm 上支持最佳，其它终端会退化为仅打开目录。</p>
+  </details>
 
   <h2 data-i18n="sup.other.h">其他</h2>
   <p data-i18n-html="sup.other.p">隐私相关说明请见<a href="privacy.html">隐私政策</a>。RightKit 支持 macOS 13 Ventura 及以上版本（Apple Silicon 与 Intel）。</p>
