@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服务条款 — RightKit</title>
+<meta name="description" content="RightKit 服务条款：授权范围、购买与退款、使用限制与免责声明。">
+<link rel="icon" type="image/png" href="icon-256.png">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: rgba(255,255,255,.045);
+  --surface-hover: rgba(255,255,255,.08);
+  --border: rgba(255,255,255,.09);
+  --text: #f2f2f7;
+  --text-2: #a1a1aa;
+  --text-3: #63636b;
+  --accent: #F2702E;
+  font-size: 16px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: var(--accent); color: #fff; }
+.glow {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(600px 400px at 75% -5%, rgba(249,123,54,.14), transparent 65%),
+    radial-gradient(500px 380px at 15% 10%, rgba(232,94,33,.10), transparent 65%);
+}
+.nav-wrap { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.05); }
+nav { display: flex; align-items: center; justify-content: space-between; max-width: 1080px; margin: 0 auto; padding: 18px 24px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); }
+.logo:hover { text-decoration: none; }
+.logo img { width: 32px; height: 32px; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.back { font-size: .95rem; color: var(--text-2); }
+.back:hover { color: var(--text); text-decoration: none; }
+main { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
+.meta { color: var(--text-3); font-size: .92rem; margin-bottom: 40px; }
+h2 { font-size: 1.35rem; font-weight: 700; margin: 36px 0 12px; letter-spacing: -.01em; }
+p, li { color: var(--text-2); font-size: 1rem; margin-bottom: 10px; }
+ul { padding-left: 1.3em; margin-bottom: 12px; }
+.lead {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 20px 22px; margin-bottom: 28px;
+}
+.lead p { color: var(--text); font-weight: 500; margin: 0; }
+footer { border-top: 1px solid rgba(255,255,255,.06); padding: 36px 24px; text-align: center; color: var(--text-3); font-size: .88rem; }
+footer a { color: var(--text-3); }
+footer a:hover { color: var(--text-2); }
+</style>
+<script src="i18n.js" defer></script>
+</head>
+<body data-page="terms">
+<div class="glow"></div>
+
+<div class="nav-wrap">
+<nav>
+  <a class="logo" href="index.html">
+    <img src="icon-256.png" data-i18n-attr="alt:common.iconAlt" alt="RightKit 图标">
+    RightKit
+  </a>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <button class="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language / 语言">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span class="lang-cur">简体</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-menu" role="menu">
+        <button data-lang="zh-Hans" role="menuitem">简体中文</button>
+        <button data-lang="zh-Hant" role="menuitem">繁體中文</button>
+        <button data-lang="en" role="menuitem">English</button>
+        <button data-lang="ja" role="menuitem">日本語</button>
+        <button data-lang="ko" role="menuitem">한국어</button>
+        <button data-lang="fr" role="menuitem">Français</button>
+        <button data-lang="de" role="menuitem">Deutsch</button>
+        <button data-lang="es" role="menuitem">Español</button>
+        <button data-lang="ru" role="menuitem">Русский</button>
+        <button data-lang="pt" role="menuitem">Português</button>
+      </div>
+    </div>
+    <a class="back" href="index.html" data-i18n="common.back">← 返回首页</a>
+  </div>
+</nav>
+</div>
+
+<main>
+  <h1 data-i18n="terms.h1">服务条款</h1>
+  <p class="meta" data-i18n="terms.meta">生效日期：2026 年 7 月 5 日 · 适用于 RightKit 的 App Store 版与官网版</p>
+
+  <div class="lead">
+    <p data-i18n="terms.lead">简单说：一次购买、永久使用；授权供你本人在限定数量的 Mac 上使用；请勿分享或转售激活码。</p>
+  </div>
+
+  <h2 data-i18n="terms.1.h">1. 条款的接受</h2>
+  <p data-i18n-html="terms.1.p">下载、安装或使用 RightKit（以下简称「本软件」）即表示你已阅读并同意本条款及<a href="privacy.html">《隐私政策》</a>。如不同意，请勿使用本软件。</p>
+
+  <h2 data-i18n="terms.2.h">2. 授权许可</h2>
+  <p data-i18n-html="terms.2.p">购买专业版后，你获得一份个人的、非独占、不可转让的永久使用许可，可在授权允许的设备数量内使用本软件。官网版通过激活码激活，每个激活码有激活台数上限；App Store 版通过 App 内购买解锁，并同时适用 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple 标准最终用户许可协议（EULA）</a>。</p>
+
+  <h2 data-i18n="terms.3.h">3. 免费试用</h2>
+  <p data-i18n="terms.3.p">本软件提供限时免费试用，试用期内可体验专业版功能；试用到期后部分功能将受限，购买后即可解锁。</p>
+
+  <h2 data-i18n="terms.4.h">4. 购买与支付</h2>
+  <p data-i18n="terms.4.p">官网版订单由我们的支付合作方作为记录商户（Merchant of Record）处理——你的付款、发票及交易数据受其买家条款与隐私政策约束；App Store 版订单由 Apple 处理。</p>
+
+  <h2 data-i18n="terms.5.h">5. 退款</h2>
+  <p data-i18n-html="terms.5.p">退款规则见<a href="refund.html">《退款政策》</a>。</p>
+
+  <h2 data-i18n="terms.6.h">6. 使用限制</h2>
+  <p data-i18n="terms.6.p">你不得：</p>
+  <ul>
+    <li data-i18n="terms.6.li1">分享、转售、出租或以其他方式向第三方分发激活码；</li>
+    <li data-i18n="terms.6.li2">规避、破坏或干扰本软件的许可验证机制；</li>
+    <li data-i18n="terms.6.li3">对本软件进行反编译、反汇编或逆向工程（适用法律明确允许的范围除外）；</li>
+    <li data-i18n="terms.6.li4">将本软件用于任何违法用途。</li>
+  </ul>
+
+  <h2 data-i18n="terms.7.h">7. 知识产权</h2>
+  <p data-i18n="terms.7.p">本软件及其全部内容（包括但不限于代码、图标、界面设计与文档）的知识产权归开发者所有。本条款仅授予使用许可，不构成任何知识产权的转让。</p>
+
+  <h2 data-i18n="terms.8.h">8. 更新与支持</h2>
+  <p data-i18n-html="terms.8.p">我们会不定期发布功能更新与问题修复，但不承诺特定功能、更新频率或支持期限。支持渠道见<a href="support.html">技术支持页面</a>。</p>
+
+  <h2 data-i18n="terms.9.h">9. 免责声明与责任限制</h2>
+  <p data-i18n="terms.9.p">本软件按「现状」提供，不作任何明示或默示的保证（包括适销性与特定用途适用性）。在适用法律允许的最大范围内，我们对因使用或无法使用本软件造成的任何间接、偶然或后果性损失不承担责任；累计责任总额以你实际支付的购买金额为限。本条不排除依法不可排除的责任。</p>
+
+  <h2 data-i18n="terms.10.h">10. 授权终止</h2>
+  <p data-i18n="terms.10.p">如你违反本条款（包括分享激活码、破解或规避许可验证），我们有权吊销相应授权且不予退款。授权终止后，第 7、9 条继续有效。</p>
+
+  <h2 data-i18n="terms.11.h">11. 条款变更</h2>
+  <p data-i18n="terms.11.p">如本条款发生实质性变更，我们会在本页面更新并调整生效日期。变更后继续使用本软件即表示接受更新后的条款。</p>
+
+  <h2 data-i18n="terms.12.h">12. 适用法律</h2>
+  <p data-i18n="terms.12.p">本条款适用中华人民共和国法律。若你所在司法辖区的强制性消费者保护规定赋予你更多权利，则以该等规定为准；经支付合作方完成的交易，其本身另受该合作方条款约束。</p>
+
+  <h2 data-i18n="terms.13.h">13. 联系我们</h2>
+  <p data-i18n-html="terms.13.p">对本条款有任何疑问，请通过 <a href="support.html">技术支持页面</a> 联系我们。</p>
+</main>
+
+<footer>
+  <p>© 2026 RightKit · <a href="index.html" data-i18n="common.home">首页</a> · <a href="privacy.html" data-i18n="common.privacy">隐私政策</a> · <a href="terms.html" data-i18n="common.terms">服务条款</a> · <a href="refund.html" data-i18n="common.refund">退款政策</a> · <a href="support.html" data-i18n="common.support">技术支持</a></p>
+</footer>
+</body>
+</html>
