@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "notes": "新增「登录时启动」设置；AI 工具未被自动检测到时也可手动启用（支持 nvm/mise/volta 等版本管理器安装的 CLI）；修复试用到期后「复制路径」快捷键被误锁、快捷键无提示静默失败、以及右键菜单部分动作未同步灰显的问题。",
+  "version": "1.1.1",
+  "notes": "关于页新增「解绑激活」，可主动释放本机激活台位；解绑后该设备无法再用同一许可证重新激活。App 启动时自动校验一次许可证状态，更快响应服务器端的解绑与吊销。",
   "downloadURL": "https://github.com/rightkit/rightkit.github.io/releases/latest/download/RightKit.dmg",
   "appStoreURL": ""
 }
