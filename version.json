@@ -1,6 +1,6 @@
 {
   "version": "1.0.1",
-  "notes": "RightKit 1.0.0 正式版",
+  "notes": "修复卸载重装后试用期被重置的漏洞（试用起点服务端+Keychain 双重持久化，反重置协调）",
   "downloadURL": "https://github.com/rightkit/rightkit.github.io/releases/latest/download/RightKit.dmg",
   "appStoreURL": ""
 }
