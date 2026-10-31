@@ -81,6 +81,7 @@ details p, details ol, details ul { margin-top: 10px; }
 footer { border-top: 1px solid rgba(255,255,255,.06); padding: 36px 24px; text-align: center; color: var(--text-3); font-size: .88rem; }
 footer a { color: var(--text-3); }
 footer a:hover { color: var(--text-2); }
+[data-ch="mas"] [data-website-only] { display: none; }
 </style>
 <script src="i18n.js" defer></script>
 </head>
@@ -136,9 +137,10 @@ footer a:hover { color: var(--text-2); }
     <summary data-i18n="sup.start.1.s">第一步：启用 Finder 扩展</summary>
     <p data-i18n="sup.start.1.p1">RightKit 的右键菜单由 Finder 扩展提供，首次使用需要在系统设置中启用（App 内引导页会带你完成）：</p>
     <ul>
-      <li data-i18n-html="sup.start.1.li1"><strong>macOS 15.4.1 及以上 / macOS 26</strong>：系统设置 → 通用 → 登录项与扩展 → 文件提供程序（或「已添加的扩展」）→ 勾选 RightKit</li>
+      <li data-i18n-html="sup.start.1.li27"><strong>macOS 27（含 27.2）及以上</strong>：系统设置 → 通用 → 登录项 → 扩展 → 按 App → 点击 RightKit 右侧 ⓘ → 开启 Finder 扩展。也可切到「按类别」→ 文件提供程序 → RightKit</li>
+      <li data-i18n-html="sup.start.1.li1"><strong>macOS 15.4.1–15.x / macOS 26</strong>：系统设置 → 通用 → 登录项与扩展 → 文件提供程序 → 勾选 RightKit</li>
       <li data-i18n-html="sup.start.1.li2"><strong>macOS 13 / 14</strong>：系统设置 → 隐私与安全性 → 扩展 → 已添加的扩展 → 勾选 RightKit</li>
-      <li data-i18n-html="sup.start.1.li3"><strong>macOS 15.0–15.4.0</strong>：这些版本的系统设置没有扩展开关界面。请按 App 内提示复制命令 <code>pluginkit -e use -i com.rightkit.mac.app.findersync</code> 到「终端」执行</li>
+      <li data-i18n-html="sup.start.1.li3"><strong>macOS 15.0–15.4.0</strong>：这些版本的系统设置没有扩展开关界面。App Store 版请通过「软件更新」升级系统；官网 DMG 版可使用 App 内「一键启用」</li>
     </ul>
     <p data-i18n="sup.start.1.p2">启用后若菜单未立即出现，请重启 Finder（按住 ⌥ 右键点击 Dock 中的 Finder → 重新开启），或注销后重新登录。</p>
   </details>
@@ -161,29 +163,29 @@ footer a:hover { color: var(--text-2); }
     <summary data-i18n="sup.faq.2.s">购买后如何在新 Mac 上恢复专业版？（App Store 版）</summary>
     <p data-i18n="sup.faq.2.p">用购买时的同一 Apple 账户登录 App Store，打开 RightKit 设置 → 关于 → 点击「恢复购买」即可，无需重复付费。</p>
   </details>
-  <details>
+  <details data-website-only>
     <summary data-i18n="sup.faq.3.s">License Key 如何激活？（官网 DMG 版）</summary>
     <p data-i18n="sup.faq.3.p">打开 RightKit 设置 → 关于，在输入框中粘贴购买邮件里的激活码（格式 XXXX-XXXX-XXXX-XXXX），点击「激活」。每个激活码可在限定数量的设备上使用；更换设备如遇激活数已满，请邮件联系我们重置。</p>
   </details>
-  <details>
-    <summary data-i18n="sup.faq.4.s">「显示隐藏文件」点击后没反应？</summary>
+  <details data-website-only>
+    <summary data-i18n="sup.faq.4.s">「显示隐藏文件」点击后没反应？（仅官网 DMG 版）</summary>
     <p data-i18n="sup.faq.4.p">该功能需要重启 Finder 才能生效，RightKit 会自动完成并恢复已打开的窗口。首次使用时 macOS 可能弹出「RightKit 想控制 Finder」的自动化授权询问，请选择「允许」；若曾误点拒绝，可在 系统设置 → 隐私与安全性 → 自动化 中重新开启。</p>
   </details>
   <details>
     <summary data-i18n="sup.faq.5.s">剪贴板历史为什么是空的？</summary>
-    <p data-i18n="sup.faq.5.p">macOS 15.4 及以上版本需要「从其他 App 粘贴」权限：首次使用时系统会弹窗询问，请选择「始终允许」。可在 RightKit 设置 → 权限 页面查看当前授权状态。密码管理器等标记为隐私的内容会被自动跳过，属正常现象。</p>
+    <p data-i18n="sup.faq.5.p">请先在 RightKit 设置 → 通用 中开启剪贴板历史（App Store 版默认关闭）。macOS 15.4 及以上（含 27.2）还需到 RightKit 设置 → 权限 请求访问，然后在 系统设置 → 隐私与安全性 → 从其他 App 粘贴 将 RightKit 设为「始终允许」。未授权时历史记录会暂停，授权后自动恢复，不会反复后台弹窗。密码管理器标记的隐私内容会被跳过。</p>
   </details>
   <details>
     <summary data-i18n="sup.faq.6.s">如何完全卸载？</summary>
     <p data-i18n="sup.faq.6.p">退出 RightKit（菜单栏图标 → 退出），把 /Applications 中的 RightKit.app 移到废纸篓即可。所有配置数据都保存在本机 App 容器内，会随 App 一并清除。</p>
   </details>
-  <details>
-    <summary data-i18n="sup.faq.ai.s">如何用右键「打开 AI 工具」？</summary>
+  <details data-website-only>
+    <summary data-i18n="sup.faq.ai.s">如何用右键「打开 AI 工具」？（仅官网 DMG 版）</summary>
     <p data-i18n="sup.faq.ai.p">先在系统里装好对应的 AI 命令行工具（如 Claude Code、Gemini CLI、通义千问 qwen 等）。RightKit 会自动检测已安装的 CLI，在「设置 → 打开 AI 工具」中勾选要用的工具、选择默认终端；需要时可勾选 --dangerously-skip-permissions 等参数或自定义。之后右键任意文件夹 → 「打开 AI 工具」即可在该目录用默认终端运行。直接运行命令目前在 Terminal 与 iTerm 上支持最佳，其它终端会退化为仅打开目录。</p>
   </details>
 
   <h2 data-i18n="sup.other.h">其他</h2>
-  <p data-i18n-html="sup.other.p">隐私相关说明请见<a href="privacy.html">隐私政策</a>。RightKit 支持 macOS 13 Ventura 及以上版本（Apple Silicon 与 Intel）。</p>
+  <p data-i18n-html="sup.other.p">隐私相关说明请见<a href="privacy.html">隐私政策</a>。RightKit 支持 macOS 13 Ventura 及以上版本，已适配 macOS 27.2（Apple Silicon 与 Intel）。</p>
 </main>
 
 <footer>
