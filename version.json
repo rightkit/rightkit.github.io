@@ -1,6 +1,6 @@
 {
-  "version": "1.0.3",
-  "notes": "适配 macOS 27.2：更新 Finder 扩展启用引导，修复设置窗口关闭后无法重开，改善剪贴板授权与恢复，优化终端/编辑器打开及系统工具超时处理，并支持减少透明度与增强对比度。",
+  "version": "1.0.4",
+  "notes": "完善功能自动化回归：修复特殊文件名压缩和部分剪切重试，增强配置导入与 iCloud 完整快照同步，改进购买/激活异步状态、凭证校验与网络失败恢复，并修复更新检查和技术支持页的渠道导航。",
   "downloadURL": "https://github.com/rightkit/rightkit.github.io/releases/latest/download/RightKit.dmg",
   "appStoreURL": "https://apps.apple.com/cn/app/rightkit%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%B7%A5%E5%85%B7/id6794159745?mt=12"
 }

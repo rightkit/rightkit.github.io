@@ -1,5 +1,5 @@
 /* RightKit website i18n
- * Supported languages mirror the app: 简体中文 (zh-Hans), 繁體中文 (zh-Hant), English (en).
+ * Supported languages mirror the app's ten language choices.
  * Detection mirrors the app's RKL10n logic:
  *   - a stored manual choice always wins;
  *   - otherwise walk the browser's preferred languages: zh -> Hant/Hans, en -> en;
@@ -1509,7 +1509,7 @@
   function detect() {
     try {
       var saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && T[saved]) return saved;
+      if (SUPPORTED.indexOf(saved) !== -1) return saved;
     } catch (e) {}
     var prefs = navigator.languages && navigator.languages.length
       ? navigator.languages
@@ -1526,7 +1526,7 @@
       // Non-Chinese: match on the 2-letter prefix (en, ja, ko, fr, de, es, ru, pt),
       // mirroring the app's RKL10n.systemCode logic.
       var p2 = lower.slice(0, 2);
-      if (T[p2]) return p2;
+      if (SUPPORTED.indexOf(p2) !== -1) return p2;
     }
     return "en"; // unsupported languages fall back to English
   }
@@ -1582,10 +1582,12 @@
     for (var m = 0; m < opts.length; m++) {
       opts[m].setAttribute("aria-current", opts[m].getAttribute("data-lang") === current ? "true" : "false");
     }
+    // innerHTML replacement creates new anchors, so the channel boundary must run again.
+    if (window.RKMASChannel) window.RKMASChannel.apply();
   }
 
   function setLang(lang) {
-    if (!T[lang]) return;
+    if (SUPPORTED.indexOf(lang) === -1) return;
     current = lang;
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
     apply();
