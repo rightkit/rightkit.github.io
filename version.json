@@ -1,6 +1,6 @@
 {
-  "version": "1.0.6",
-  "notes": "新增窗口工具与防休眠：Dock/⌘Tab 窗口预览、摇动聚焦、调度中心窗口操作、隐藏窗口与撤销；防休眠支持时长、屏幕常亮和分应用自动化。修复 Dock 单击偶发失效及还原后回缩，改善浮层按钮与恢复可靠性。窗口工具和合盖为官网版专属，基础防休眠两渠道可用。",
+  "version": "1.0.7",
+  "notes": "修复点击 RightKit 自身 Dock 图标最小化时的崩溃。自身窗口操作统一在主线程执行，完善最小化窗口的还原、预览、隐藏与撤销，并保留原生 Dock 还原行为。",
   "downloadURL": "https://github.com/rightkit/rightkit.github.io/releases/latest/download/RightKit.dmg",
   "appStoreURL": "https://apps.apple.com/cn/app/rightkit%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%B7%A5%E5%85%B7/id6794159745?mt=12"
 }
