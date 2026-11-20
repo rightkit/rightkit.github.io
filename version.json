@@ -1,6 +1,7 @@
 {
-  "version": "1.0.8",
-  "notes": "修复防休眠与合盖保持唤醒。合盖保护现在会确认内核实际生效，升级后可在「系统」页检查并重新准备辅助程序。改善屏幕常亮、应用自动化与运行状态反馈。",
+  "version": "1.0.9",
+  "notes": "新增应用内更新：检测到新版后在后台下载并验证，确认后安装并重新打开 RightKit。1.0.8 或更早版本请先手动下载安装本版，之后可在应用内升级。",
   "downloadURL": "https://github.com/rightkit/rightkit.github.io/releases/latest/download/RightKit.dmg",
-  "appStoreURL": "https://apps.apple.com/cn/app/rightkit%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%B7%A5%E5%85%B7/id6794159745?mt=12"
+  "appStoreURL": "https://apps.apple.com/cn/app/rightkit%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%B7%A5%E5%85%B7/id6794159745?mt=12",
+  "sha256": "25db7c45a3fed6bcc50926e8f1c655efa2f2fe9e4e470cb83359398331f52e0d"
 }
